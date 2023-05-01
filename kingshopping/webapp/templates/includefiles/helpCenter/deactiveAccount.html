@@ -1,0 +1,68 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} Deactive your account issues solve  {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+
+    <div class="container my-4">
+        <div class="p-4">
+            <div class="p-4 w-100 h-100 d-flex justify-content-center align-items-center shadow rounded">
+                <div class="w-100">
+                    <div class="border-bottom px-4">
+                        <h4>How do i delete my <span class="text-primary">Account?</span></h4>
+                    </div>
+                    <div class="p-4">
+                        <div class="step-1">
+                            <div>
+                                <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                <span class="h6 ml-3">Sign in to your account</span>
+                            </div>
+                        </div>
+                        <div class="step-2">
+                            <div>
+                                <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                <span class="h6 ml-3">Open the Settings page</span>
+                            </div>
+                        </div>
+                        <div class="step-3">
+                            <div>
+                                <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                <span class="h6 ml-3">Go to the Security page within the Settings page</span>
+                            </div>
+                        </div>
+                        <div class="step-4">
+                            <div>
+                                <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                <span class="h6 ml-3">Deactive account button is shown below</span>
+                            </div>
+                        </div>
+                        <div class="step-5">
+                            <div>
+                                <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                <span class="h6 ml-3">Click on Deactive Account button</span>
+                            </div>
+                        </div>
+                        <div class="step-6">
+                            <div>
+                                <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                <span class="h6 ml-3">A dialog box will open and enter your account password</span>
+                            </div>
+                        </div>
+                        <div class="step-7">
+                            <div>
+                                <span class="fa fa-angle-right" aria-hidden="true"></span>
+                                <span class="h6 ml-3">Your account has been successfully deleted</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-3 text-center">
+                        <a href="{% url 'userhelp' %}" class="btn btn-primary">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                            <span>Back</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock bodycontent %}

@@ -1,0 +1,68 @@
+{% extends 'common/admincommon.html' %}
+{% block WebTitle %} Users {% endblock WebTitle %}
+{% block BodyContent %}
+
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Phone</th>
+                                <th class="nosort th-last-10">Controls</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for aludata in allsetuser %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{aludata.firstname}}</td>
+                                    <td>{{aludata.lastname}}</td>
+                                    <td>{{aludata.username}}</td>
+                                    <td>{{aludata.email}}</td>
+                                    <td>{{aludata.gender}}</td>
+                                    <td>{{aludata.phone}}</td>
+                                    <td class="position-relative">
+                                        <div class="tablesubmenu justify-content-around d-flex">
+                                            <button class="usereditmodalbtn modalbtn btn btn-sm btn-outline-primary" title="View" type="button" data-click="{{aludata.user_id}}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="userremovebtn modalbtn btn btn-sm btn-outline-danger" title="Remove" type="button" data-click="{{aludata.user_id}}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock BodyContent %}
+
+
+{% block ModalContent %}
+
+    {% include 'adminmodals/userEditModal.html' %}
+
+    {% include 'adminmodals/deleteModal.html' %}
+
+{% endblock ModalContent %}

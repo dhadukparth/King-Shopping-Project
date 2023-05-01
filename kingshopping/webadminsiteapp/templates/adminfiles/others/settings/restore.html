@@ -1,0 +1,70 @@
+{% extends 'adminfiles/others/settings.html' %}
+{% load static %}
+
+{% block SettingBoxContent %}
+
+    <div class="container-fluid">
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Bin</h6>
+            </div>
+            <div class="card-body">
+                <div class="row row-gap-3">
+                    
+                    {% comment %} Remove Modals List  {% endcomment %}
+                    {% for rmodal in rmodals %}
+
+                        {% comment %} All Modals List  {% endcomment %}
+                        {% comment %} {% for modal in modals %} {% endcomment %}
+
+                            {% comment %} Check Remove Modal And All Modal Name Same  {% endcomment %}
+                            {% comment %} {% if rmodal == modal %} {% endcomment %}
+                                <div class="col-lg-6 col-xl-4 col-sm-12">
+                                    <div class="text-decoration-none cursor-pointer" data-toggle="modal" data-target="#{{rmodal}}SliderModal">
+                                        <div class="rounded bg-primary p-3 d-flex justify-content-between align-items-center">
+                                            <h6 class="m-0 font-weight-bold text-white text-capitalize">{{rmodal}}</h6>
+                                            <i class="fas fa-angle-right text-white"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% comment %} {% endif %} {% endcomment %}
+
+                        {% comment %} {% endfor %} {% endcomment %}
+                        
+                        {% empty %}
+                            <div class="text-center">
+                                <h3 class="m-0">Records Not Found</h3>
+                            </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock SettingBoxContent %}
+
+{% block ModalContent %}
+
+    {% comment %} {% if countrmcat != 0 %} {% endcomment %}
+        {% include 'adminmodals/BinSliders/binCategory.html' %}
+
+    {% comment %} {% elif countembrand != 0 %} {% endcomment %}
+        {% include 'adminmodals/BinSliders/binBrands.html' %}
+
+    {% comment %} {% elif countrmpro != 0 %} {% endcomment %}
+        {% include 'adminmodals/BinSliders/binProducts.html' %}
+
+    {% comment %} {% elif countrmemp != 0 %} {% endcomment %}
+        {% include 'adminmodals/BinSliders/binEmployees.html' %}
+
+    {% comment %} {% elif countrmbanner != 0 %} {% endcomment %}
+        {% include 'adminmodals/BinSliders/binBanners.html' %}
+    {% comment %} {% endif %} {% endcomment %}
+
+{% endblock ModalContent %}

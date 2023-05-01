@@ -1,0 +1,104 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} Shopping Cart {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+
+    <div class="container my-4">
+        {% if login_user != None %}
+
+            <div class="p-3">
+                <div class="py-4 text-center">
+                    <h3 class="m-0">Your <span class="text-primary">Issues</span></h3>
+                </div>
+
+                {% for issues in allissues %}
+                    <div class="shadow py-3 px-4 my-3 rounded d-flex">
+                        <figure class="allBannerImage m-0">
+                            <div class="rounded h-100" style="width: 75px;">
+                                <img src="{% static 'assets/images/icons/logoblue.png' %}" alt="Banner" class="w-100 h-100 p-3 object-fit-scale">
+                            </div>
+                        </figure>
+                        <div class="content w-100 p-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h6 class="m-0">{{issues.issueshort}}</h6>
+                                <div>{{issues.idate}}</div>
+                            </div>
+                            <p>{{issues.issues}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            
+
+        {% else %}
+            <div class="p-4">
+                <div class="w-100 h-100 d-flex justify-content-center align-items-center p-5 shadow rounded">
+                    <div class="text-center">
+                        <h4 class="mb-3">Please! Sign In In Your Account?</h4>
+                        <button type="button" class="btn btn-outline-primary-2" data-toggle="modal" data-target="#signin-modal">
+                            <span>LOG IN</span>
+                            <i class="icon-long-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="p-4">
+            <div class="shadow py-3 rounded">                
+                <div class="text-center py-4 border-bottom">
+                    <h5 class="m-0">What <span class="text-primary">issue</span> are you facing?</h5>
+                </div>
+                <div class="content w-100 p-4">
+                    <a href="{% url 'orders' %}">
+                        <div class="issueshover border-bottom my-2 p-3 d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="my-2">I want to manage my order</h6>
+                                <p>Cancel, change delivery date & address</p>
+                            </div>
+                            <div>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{% url 'issues2' %}">
+                        <div class="issueshover border-bottom my-2 p-3 d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="my-2">I want help with other issues</h6>
+                                <p>Orders, Products & any other issues</p>
+                            </div>
+                            <div>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{% url 'issues3' %}">
+                        <div class="issueshover border-bottom my-2 p-3 d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="my-2">I want to delete my account</h6>
+                                <p>Deactive your account.</p>
+                            </div>
+                            <div>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{% url 'issues4' %}">
+                        <div class="issueshover border-bottom my-2 p-3 d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="my-2">I want to contact the seller</h6>
+                            </div>
+                            <div>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock bodycontent %}

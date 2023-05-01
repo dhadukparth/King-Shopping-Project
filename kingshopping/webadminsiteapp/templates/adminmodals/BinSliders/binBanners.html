@@ -1,0 +1,39 @@
+<div class="modal right fade" id="bannersSliderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog d-flex align-items-center position-absolute m-0 h-100" role="document" style="max-width: 95%; width: 50rem;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-capitalize">Banners</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pb-4" style="height: 55rem; overflow: scroll;">
+                <div class="container-fluid p-0">
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                {% for rmbanner in removebanners %}
+                                    <div class="col-12 my-2">
+                                        <figure class="allBannerImage m-0 position-relative">
+                                            <div class="rounded cursor-pointer w-100 h-fit-content">
+                                                <img src="{{rmbanner.bannerImage.url}}" alt="Banner" class="w-100 h-100 p-3 object-fit-scale rounded shadow">
+                                            </div>
+                                            <div class="bannerRemovePanel position-absolute top-0 left-0 w-100 h-100 d-none" style="background: #7c7d7e80;">
+                                                <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+                                                    <h4 class="fas fa-undo  text-white cursor-pointer binrestorebtn" aria-hidden="true" title="Restore Banner" data-restore="{{rmbanner.bannerid}}" data-table="banners"></h4>
+                                                </div>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

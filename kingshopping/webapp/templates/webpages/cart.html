@@ -1,0 +1,173 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} Shopping Cart {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+
+    {% if login_user != None %}
+        <main class="main">
+            
+            <div class="mt-2"></div>
+
+            <div class="page-content">
+                <div class="cart">
+                    <div class="container">
+                        
+                        {% if itemsco != 0 %}
+                            
+                            <div class="row">
+                                
+                                <div class="col-lg-9">
+                                
+                                    {% if deliveraddr.delivertitle == 0 and deliveraddr.deliverdesc == 0 %}
+                                        <div class="deliveraddress shadow rounded p-4 py-3 my-3 d-flex justify-content-between align-items-center" data-click="1">
+                                            <a href="/account/address/" class="btn btn-outline-primary-2 btn-order btn-block">
+                                                <i class="fa fa-plus"></i>
+                                                Add Address
+                                            </a>
+                                        </div>
+                                    {% else %}
+                                        <div class="deliveraddress shadow rounded p-4 py-3 my-3 d-flex justify-content-between align-items-center" data-click="1">
+                                            <div class="address">
+                                                <h6>Deliver To : <span>{{deliveraddr.delivertitle}}</span></h6>
+                                                <p>{{deliveraddr.deliverdesc}}</p>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-outline-primary-2 rounded" data-toggle="modal" data-target="#changeaddressModal">Change</button>
+                                            </div>
+                                        </div>
+                                    
+                                    {% endif %}
+
+                                    {% for cartd in allcart %}
+                                                                                
+                                        <div class="shadow d-flex justify-content-between p-4 my-3 rounded">
+                                            <div class="d-flex">
+                                                <div class="bg-white">
+                                                    <figure class="product-media bg-white py-2" style="width: 150px; height: 150px; overflow: hidden;">
+                                                        <img src="{{cartd.proimage1.url}}" alt="Product image" class="p-2 bg-white w-100 h-100 object-fit-scale">
+                                                    </figure>
+                                                </div>
+                                                <div class="ml-5 py-3">
+                                                    <div class="pb-1">
+                                                        <a href="/product?proname={{cartd.proname|slice:70}}&proid={{cartd.proid}}&procolor={{cartd.procolorname}}&proprice={{cartd.proprice}}" title="{{cartd.proname}}">
+                                                            <div class="product-title h-25">
+                                                                {{cartd.proname}}
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-price py-2">
+                                                        <div>
+                                                            <i class="fas fa-rupee-sign pr-2"></i>
+                                                            <span class="cartproprice">{{cartd.proprice}}</span>
+                                                        </div>
+                                                        {% if cartd.prostock == 0 %}
+                                                            <div class="text-danger ml-3">
+                                                                Out of Stock
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="cart-product-quantity">
+                                                        <input type="number" class="productqty form-control" value="{{cartd.proqty}}" min="1" max="10" step="1" data-decimals="0" required data-click="{{cartd.proid}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pr-3 pt-2 h5">
+                                                <div class="cartProductRemoveBtn text-danger cursor-pointer" title="Remove" data-click="{{cartd.proid}}">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div><!-- End .col-lg-9 -->
+                                
+                                <aside class="col-lg-3">
+                                    <div class="summary my-3 summary-cart border-0 bg-white shadow rounded">
+                                        <h3 class="summary-title">Price Details</h3><!-- End .summary-title -->
+
+                                        <table class="table table-summary">
+                                            <tbody>
+                                                <tr class="summary-subtotal">
+                                                    <td>Price ({{itemsco}} item) :</td>
+                                                    <td>
+                                                        <span class="fas fa-rupee-sign"></span>
+                                                        {{pricedetails.totalproprice}}
+                                                    </td>
+                                                </tr><!-- End .summary-subtotal -->
+                                                
+                                                <tr class="summary-subtotal">
+                                                    <td>Delivery Charges :</td>
+                                                    <td class="text-success">Free</td>
+                                                </tr><!-- End .summary-subtotal -->
+
+
+                                                <tr class="summary-total">
+                                                    <td>Total :</td>
+                                                    <td>
+                                                        <span class="fas fa-rupee-sign"></span>
+                                                        {{pricedetails.totalprice}}
+                                                    </td>
+                                                </tr><!-- End .summary-total -->
+                                            </tbody>
+                                        </table><!-- End .table table-summary -->
+
+                                        <hr class="my-3">
+
+                                        {% if deliveraddr.delivertitle != 0 and deliveraddr.deliverdesc != 0 %}
+                                            <button type="button" class="buyproduct btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+                                        {% else %}
+                                            <div class="text-danger text-center h6">Please, Enter Your Address</div>
+                                        {% endif %}
+
+                                    </div><!-- End .summary -->
+
+                                </aside><!-- End .col-lg-3 -->
+
+                            </div><!-- End .row -->
+
+                        {% else %}
+                            <div class="shadow p-5 d-flex justify-content-center align-items-center flex-column rounded">
+                                <div style="weight: 250px; height: 170px;">
+                                    <figure class="w-100 h-100">
+                                        <img src="{% static 'assets/images/cartempty.png' %}" alt="" class="w-100 h-100">
+                                    </figure>
+                                </div>
+                                <div class="my-3 h6">Your cart is empty!</div>
+                                <div class="my-2">Add items to it now.</div>
+                                
+                                <button class="btn btn-primary btncartshopnow">Shop Now</button>
+
+                            </div>
+                        {% endif %}
+                            
+                        
+
+                    </div><!-- End .container -->
+                </div><!-- End .cart -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+
+    {% else %}
+
+        <div class="container">
+
+            <div class="w-100 h-100 d-flex justify-content-center align-items-center p-5 m-5 shadow rounded">
+                <div class="text-center">
+                    <h4 class="mb-3">Please! Sign In In Your Account?</h4>
+                    <button type="button" class="btn btn-outline-primary-2" data-toggle="modal" data-target="#signin-modal">
+                        <span>LOG IN</span>
+                        <i class="icon-long-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    {% endif %}
+    
+{% endblock bodycontent %}
+
+{% block pageModals %}
+    {% include 'modals/changeaddress.html' %}
+{% endblock pageModals %}

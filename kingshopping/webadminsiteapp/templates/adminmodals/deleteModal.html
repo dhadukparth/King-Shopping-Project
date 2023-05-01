@@ -1,0 +1,20 @@
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+            </div>
+            <form id="deleteForm" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <h6 class="deleteModalMessage"></h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btnmodalclose btn btn-outline-warning" data-dismiss="#deleteModal">Close</button>
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

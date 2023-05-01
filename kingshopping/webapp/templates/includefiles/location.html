@@ -1,0 +1,48 @@
+{% extends 'webpages/settings.html' %}
+{% block webtitle %} Last Login {% endblock webtitle %}
+{% load static %}
+
+{% block settingmenucontent %}
+
+    {% if login_user != None %}
+        <div class="py-5 px-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h3>Sign In Activity</h3>
+                </div>
+            </div>
+            <div class="row py-3">
+                {% for locdata in allLocation %}
+                    <div class="col-12 my-2">
+                        <a target="_blank" href="https://www.google.com/maps/place/{{locdata.longitude}}N+{{locdata.latitude}}E" class="text-dark d-flex justify-content-between align-items-center px-4 py-3  shadow rounded cursor-pointer" data-long="{{locdata.longitude}}" data-lat="{{locdata.latitude}}">
+                            <div class="activity-content">
+                                <h5>Activity - {{forloop.counter}}</h5>
+                                <span>{{locdata.login_date}}</span>
+                            </div>
+                            <div class="next-icon">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    
+                </div>
+            </div>
+        </div>
+    {% else %}
+
+        <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+            <div class="text-center">
+                <h4 class="mb-3">Please! Sign In In Your Account?</h4>
+                <button type="button" class="btn btn-outline-primary-2" data-toggle="modal" data-target="#signin-modal">
+                    <span>LOG IN</span>
+                    <i class="icon-long-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+    {% endif %}
+{% endblock settingmenucontent %}

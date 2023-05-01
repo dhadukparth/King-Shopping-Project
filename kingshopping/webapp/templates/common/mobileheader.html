@@ -1,0 +1,29 @@
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+<div class="mobile-menu-container">
+    <div class="mobile-menu-wrapper">
+        <span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+        <form action="#" method="get" class="mobile-search">
+            <label for="mobile-search" class="sr-only">Search</label>
+            <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+            <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+        </form>
+        
+        <nav class="mobile-nav">
+            <ul class="mobile-menu">
+
+                <li class="{% if request.resolver_match.url_name == "home" %}active{% endif %}">
+                    <a href="{% url 'home' %}">Home</a>
+                </li>
+                {% for menu in menus %}
+                    <li>
+                        <a href="/products/{{menu.catname}}/">{{menu.catname}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+    </div>
+</div>

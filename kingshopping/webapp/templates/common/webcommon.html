@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="{% static 'assets/images/icons/browserconfig.xml' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>{% block webtitle %}{% endblock webtitle %}</title>
+    
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/images/icons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/images/icons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/images/icons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/images/icons/site.html' %}">
+    <link rel="mask-icon" href="{% static 'assets/images/icons/safari-pinned-tab.svg' %}" color="#666666">
+    <link rel="shortcut icon" href="{% static 'assets/images/icons/favicon.ico' %}">
+    
+    
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/owl-carousel/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/magnific-popup/magnific-popup.css' %}">
+    <!--<link rel="stylesheet" href="{% static 'assets/css/plugins/jquery.countdown.css' %}">-->
+    
+    <!-- Main CSS File -->
+    <!--<link rel="stylesheet" href="{% static 'assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css' %}">-->
+
+
+    <!-- Font Awesome Icon CDN  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Hint CSS CDN  -->
+    <link rel="stylesheet" href="{% static 'assets/css/hint-css.css' %}" />
+
+
+    <!-- Customer Css File Link -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    
+    <!-- Customize Button Css Link -->
+    <link rel="stylesheet" href="{% static 'assets/css/skins/skin-demo-4.css' %}">
+    
+    <!-- Home Page Banner Css Link  -->
+    <link rel="stylesheet" href="{% static 'assets/css/demos/demo-4.css' %}">
+
+</head>
+
+<body>
+
+    {% comment %} <div id="mainLoader">
+        {% include 'common/loader.html' %}
+    </div> {% endcomment %}
+
+    <div class="page-wrapper">
+        {% if userprofile == 1 %}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <div class="text-center">
+                    <h6 class="m-0 p-2 text-white">Profile Please, Complete Your <a href="{% url 'Profile' %}" class="text-decoration-underline">Profile</a></h6>
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true" class="h6 m-0">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+        
+        {% if request.resolver_match.url_name != "Buy_product" %}
+            {% include 'common/header.html' %}
+        {% endif %}
+        
+        
+        {% block bodycontent %}{% endblock bodycontent %}
+        
+        
+        {% if request.resolver_match.url_name != "Buy_product" %}
+            {% include 'common/footer.html' %}
+        {% endif %}
+
+        
+    </div>
+
+
+    {% include 'common/mobileheader.html' %}
+
+
+    {% comment %} All Modals Files {% endcomment %}
+
+    {% comment %} Internet Check Modal {% endcomment %}
+    {% include 'modals/checkInternet.html' %}
+    {% include 'modals/processingModal.html' %}
+    {% include 'modals/otpModal.html' %}
+
+    {% if notuser == 0 %}
+
+        {% comment %} User Login Modal {% endcomment %}
+        {% include 'modals/signin.html' %}
+
+        {% comment %} Create User Modal {% endcomment %}
+        {% include 'modals/signup.html' %}
+
+        {% comment %} Forgot Password Modal {% endcomment %}
+        {% include 'modals/forgotpassword.html' %}
+
+        {% comment %} OTP Side Login Modal {% endcomment %}
+        {% include 'modals/otpsignin.html' %}
+
+    {% else %}
+
+    
+        {% comment %} Logout Modal {% endcomment %}
+        {% include 'modals/logout.html' %}
+
+        {% comment %} Page Side Call Modals {% endcomment %}
+    
+    {% endif %}
+        
+    {% block pageModals %}{% endblock pageModals %}
+
+    {% comment %} Message Box {% endcomment %}
+    {% for msg in messages %}
+        <div id="messagebox" class="w-auto mw-50  position-fixed bg-black d-flex align-items-center py-4 px-5 rounded z-full" style="bottom: 0; left: 50%; transform: translate(-50%, -50%); transition: all .5s linear;">
+            <div>
+                <div class="text-white bg-{% if msg.tags == 'success' %}success{% elif msg.tags == 'warning' %}warning{% else %}danger{% endif %} rounded-circle d-flex justify-content-center align-items-center" style="width: 25px; height: 25px;">
+                    <span class="{% if msg.tags == 'success' %}icon-check{% elif msg.tags == 'warning' %}fas fa-exclamation text-black{% else %}icon-times{% endif %}"></span>
+                </div>
+            </div>
+            <div class="h6 text-white m-0 ml-4">{{msg}}</div>
+        </div>
+    {% endfor %}
+
+    <!-- Plugins JS File -->
+
+    <!-- JQuery CDN -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap CDN -->
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Jquery Hover Intent CDN -->
+    <script src="{% static 'assets/js/jquery.hoverIntent.min.js' %}"></script>
+
+    <!-- Jquery Waypoints CDN -->
+    <script src="{% static 'assets/js/jquery.waypoints.min.js' %}"></script>
+
+    <!-- superfish CDN # -->
+    <script src="{% static 'assets/js/superfish.min.js' %}"></script>
+
+    <!-- owl carousel CDN -->
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+
+    <!-- Bootstrap Input Spinner CDN -->
+    <script src="{% static 'assets/js/bootstrap-input-spinner.js' %}"></script>
+
+    <!-- jquery elevateZoom CDN -->
+    <script src="{% static 'assets/js/jquery.elevateZoom.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/jquery.plugin.min.js' %}"></script>
+
+    {% comment %} Jquery Magnific Popup CDN {% endcomment %}
+    <script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+
+    {% comment %} Hint JS File CDN {% endcomment %}
+    <script src="{% static 'assets/js/hint-js.js' %}"></script>
+
+    <!-- Count Down # -->
+    {% comment %} <script src="{% static 'assets/js/jquery.countdown.min.js' %}"></script> {% endcomment %}
+
+    {% comment %} Main JS File {% endcomment %}
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <!-- # -->
+    {% comment %} <script src="{% static 'assets/js/demos/demo-4.js' %}"></script> {% endcomment %}
+
+    {% comment %} My Ajax File  {% endcomment %}
+    <script src="{% static 'assets/js/mainajax.js' %}"></script>
+
+</body>
+
+</html>

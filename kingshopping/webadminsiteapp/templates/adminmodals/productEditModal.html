@@ -1,0 +1,81 @@
+{% comment %} Product Edit Modal {% endcomment %}
+<div class="modal fade" id="peoductEditModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Products</h5>
+                <button type="button" class="btnmodalclose close" data-dismiss="#peoductEditModal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/adminsideproweb/products/edit/" method="POST">
+                {% csrf_token %}
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <select class="form-select" name="uprocategory" title="Select Category" id="eproducteditcategorys"></select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <select class="form-select" name="uprobrands" title="Select Brand" id="eproducteditbrands"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-outline">
+                                <input type="text" name="uproname" id="eproductname" class="form-control" title="Product Name">
+                                <label for="name" class="form-label">Product Name</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-outline">
+                                <input type="number" min="0" name="uproprice" id="eproductprice" class="form-control" title="Product Price">
+                                <label for="price" class="form-label">Product Price</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-6">
+                            <div class="form-outline">
+                                <input type="number" min="0" name="uprostock" id="eproductstock" class="form-control" title="Product Stock">
+                                <label for="stock" class="form-label">Product Stock</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-outline">
+                                <input type="text" name="uprocolor" id="eproductcolor" class="form-control" title="Product Color">
+                                <label for="color" class="form-label">Product Color</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-12">
+                            <div class="form-outline">
+                                <textarea name="uprodescription" id="eproductdescription" rows="5" class="form-control" title="Product Description"></textarea>
+                                <label for="description" class="form-label">Product Description</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="modal-footer d-flex justify-content-between">
+                    <div>
+                        <button class="btn btn-outline-primary gap ml-2" type="button" title="Edit" data-dismiss="#peoductEditModal">
+                            <i class="fas fa-info"></i>
+                            <span class="ps-2">Additional</span>
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="btnmodalclose btn btn-outline-warning" data-dismiss="#peoductEditModal">Close</button>
+                        <button  type="submit" class="updatebtn btn btn-outline-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<!-- Sign in Modal -->
+<div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
+
+                <div class="form-box">
+
+                    <!-- SignIn Panel -->
+                    <div class="text-center">
+                        <h3>Sign In</h3>
+                    </div>
+                    <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                        <form action="{% url 'userlogin' %}" method="POST" autocomplete="off">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="singin-username">Username <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="singin-username" name="singin-username" required>
+                                <span class="forgotusererror text-danger font-weight-bold"><span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="singin-password">Password <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                            </div>
+
+                            <div class="form-footer border-0 m-0 p-0 justify-content-between">
+                                <button type="submit" id="f-model-login" class="btn btn-outline-primary-2">
+                                    <span>LOG IN</span>
+                                    <i class="icon-long-arrow-right"></i>
+                                </button>
+                                <div class="forgotpasswordbtn text-primary cursor-pointer" data-toggle="modal">Forgot Password?</div>
+                            </div>
+                        </form>
+                        <div class="form-choice pt-3">
+                            <p class="text-center">OR</p>
+                            <button type="submit" class="btn btn-outline-primary-2 w-100" data-dismiss="modal" data-toggle="modal" data-target="#otplogin-modal">
+                                <span>Request OTP</span>
+                                <i class="icon-long-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2 text-center">
+                            <div class="text-primary cursor-pointer" data-dismiss="modal" data-toggle="modal" data-target="#signup-modal">Create New Account</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- OTP Modal -->
+{% if twostep == "on" %}
+    <div class="modal fade show d-block" id="otpModal" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" style="background: rgb(0 0 0 / 30%);">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+                    <div class="p-5">
+                        <div class="pt-2">
+                            <h6>Check Your email address and enter OTP.</h6>
+                        </div>
+                        <form  action="/" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group mb-1">
+                                <input type="text" class="form-control" id="userotp" name="twostepOTP" required autofocus maxlength="6" />
+                            </div>
+                            <div class="form-choice mt-2">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <a href="/" class="btn btn-login w-100">Close</a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="otpsubmitbtn btn btn-login w-100">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

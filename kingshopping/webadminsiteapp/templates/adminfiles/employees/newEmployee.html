@@ -1,0 +1,173 @@
+{% extends 'common/admincommon.html' %}
+{% block WebTitle %} New Employee {% endblock WebTitle %}
+{% block BodyContent %}
+
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">New Employee</h6>
+        </div>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="table-responsive">
+
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-4 col-12 my-2">
+                                <div class="form-outline">
+                                    <input type="text" name="empFirstname" id="firstname" class="form-control"
+                                        title="Employee First Name" required />
+                                    <label class="form-label" for="firstname">Firstname</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 my-2">
+                                <div class="form-outline">
+                                    <input type="text" name="empLastname" id="lastname" class="form-control"
+                                        title="Employee Last Name" />
+                                    <label class="form-label" for="lastname">Lastname</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 my-2">
+                                <div class="form-outline">
+                                    <input type="text" name="empUsername" id="username" class="form-control"
+                                        title="Employee Username" required />
+                                    <label class="form-label" for="username">Username</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 col-12 my-2">
+                                <div class="form-outline">
+                                    <input type="email" name="empEmail" id="email" class="form-control"
+                                        title="Employee Email" required />
+                                    <label class="form-label" for="email">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 my-2">
+                                <div class="form-outline">
+                                    <input type="text" name="empMobile" id="phone" class="form-control"
+                                        title="Employee Mobile" maxlength="10"/>
+                                    <label class="form-label" for="phone">Mobile</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 my-2">
+                                <div class="form-outline">
+                                    <input type="number" name="empSalary" id="salary" value="3000" class="form-control"
+                                        title="Employee Salary" required />
+                                    <label class="form-label" for="salary">Salary</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 col-12 my-2">
+                                <div class="form-group m-0">
+                                    <select id="gander" name="empGender" class="form-select" title="Select Gender" required>
+                                        <option selected>Select Gender</option>
+                                        <option name="male">Male</option>
+                                        <option name="female">Female</option>
+                                        <option name="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 my-2">
+                                <div class="form-group m-0">
+                                    <select id="deparement" name="empDeparement" class="form-select" title="Select Deparement" required>
+                                        <option selected>Select Deparement</option>
+                                        <option name="administrator">Administrator</option>
+                                        <option name="delivery">Delivery</option>
+                                        <option name="employee">Employee</option>
+                                        <option name="hr">HR</option>
+                                        <option name="manager">Manager</option>
+                                        <option name="packing">Packing</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 my-2">
+                                <div class="form-outline">
+                                    <input type="date" id="joindate" name="empJoinDate" class="form-control" title="Employee Joining Date" />
+                                    <label class="form-label" for="joindate">Joining Date</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 my-2">
+                                <div class="form-outline">
+                                    <textarea class="form-control" name="empAddress" id="address" rows="5"
+                                        title="Employee Address" required></textarea>
+                                    <label class="form-label" for="address">Address</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 col-12 my-2">
+                                <div class="form-outline">
+                                    <input type="date" id="dob" name="empDob" class="form-control"
+                                        title="Employee Date Of Birth" required />
+                                    <label class="form-label" for="dob">Date Of Birth</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-12 my-2">
+                                <div class="form-outline">
+                                    <input type="text" id="city" name="empCity" class="form-control"
+                                        title="Employee City" required />
+                                    <label class="form-label" for="city">City</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-12 my-2">
+                                <div class="form-outline">
+                                    <input type="text" id="state" name="empState" class="form-control"
+                                        title="Employee State" required />
+                                    <label class="form-label" for="state">State</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-12 my-2">
+                                <div class="form-outline">
+                                    <input type="text" id="country" name="empCountry" class="form-control"
+                                        title="Employee Country" required />
+                                    <label class="form-label" for="country">Country</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% comment %} <div class="row mb-4">
+                            <div class="col my-2">
+                                <div class="form-outline">
+                                    <input type="password" id="password" name="empPassword" class="form-control"
+                                        title="Employee PAssword" required autocomplete="off" />
+                                    <label class="form-label" for="password">Password</label>
+                                </div>
+                            </div>
+
+                            <div class="col my-2">
+                                <div class="form-outline">
+                                    <input type="password" id="repassword" name="empRePassword" class="form-control"
+                                        title="Employee PAssword" required autocomplete="off" />
+                                    <label class="form-label" for="repassword">Re - Password</label>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+
+
+                    </div>
+
+                    <div class="card-footer d-flex justify-content-end">
+                        <button class="btn btn-outline-primary" type="submit">Submit</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock BodyContent %}

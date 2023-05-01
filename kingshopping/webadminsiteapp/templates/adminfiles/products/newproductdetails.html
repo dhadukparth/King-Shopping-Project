@@ -1,0 +1,393 @@
+{% extends 'adminfiles/products/newproduct.html' %}
+{% block categoryHide %}catHide{% endblock categoryHide %}
+{% load static %}
+{% block newProductsDeatils %}
+
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">New Product Details</h6>
+        </div>
+
+        <form action="/adminsideproweb/new product/{{catname}}/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="table-responsive">
+
+                    <div class="w-100">
+                        <div class="progress mt-3" style="height: 30px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                style="font-weight:bold; font-size:15px;" role="progressbar"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="card mt-3">
+
+                            {% comment %} Product Information {% endcomment %}
+                            <div class="card-body p-lg-5 p-sm-3 step">
+                                <div
+                                    class="modal-header pt-0 font-weight-bold d-flex justify-content-center text-uppercase">
+                                    <span>Product Informations</span>
+                                </div>
+
+                                <div class="mt-4">
+
+                                    <div class="row">
+                                        <div class="col-lg-6 my-2">
+                                            <div class="form-outline m-0">
+                                                <input type="text" id="procategory" name="ncatname" class="form-control" title="Product Category" value={{catname}} required disable readonly/>
+                                                <label class="form-label" for="procategory">Product Category</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 my-2">
+                                            <select name="newbrand" id="brand" class="form-control form-control-alternative" title="Product Brand" required>
+                                                <option>Select Brand</option>
+                                                {% for fb in fetchbrands %}
+                                                    <option value="{{fb.bid}}">{{fb.bname}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 my-2">
+                                            <div class="form-outline">
+                                                <input type="text" id="proname" name="newProName" class="form-control" title="Product Name" required/>
+                                                <label class="form-label" for="proname">Product Name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-4 my-2">
+                                            <div class="form-outline">
+                                                <input type="number" id="proprice" name="newProprice" class="form-control" title="Price" required/>
+                                                <label class="form-label" for="proprice">Price</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 my-2">
+                                            <div class="form-outline">
+                                                <input type="number" id="prostock" name="newProstock" class="form-control" title="Product Stock" required/>
+                                                <label class="form-label" for="prostock">Product Stock</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 my-2">
+                                            <div class="form-outline">
+                                                <input type="text" id="procolorname" name="NewProductName" class="form-control" title="Product Color Name" required/>
+                                                <label class="form-label" for="procolorname">Product Color Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 my-2">
+                                            <div class="form-outline">
+                                                <input type="color" id="procolor" name="newProductCode" class="form-control" title="Product Color" required/>
+                                                <label class="form-label" for="procolor">Product Color</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 my-lg-2 my-2">
+                                            <div class="form-group m-0">
+                                                <select class="form-control" name="new_clothes_gender" id="new_clothes_gender" title="Clothe Gender" required>
+                                                    <option value="No" selected>Select Gender</option>
+                                                    <option value="boys">Boys</option>
+                                                    <option value="childern">Childern</option>
+                                                    <option value="girls">Girls</option>
+                                                    <option value="man">Man</option>
+                                                    <option value="woman">Woman</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2 my-lg-2 my-2">
+                                            <div class="form-outline">
+                                                <input type="text" name="new_clothes_size" id="new_clothes_size" class="form-control" title="Clothes Size" required value="No">
+                                                <label for="clothes_size" class="form-label">Clothes Size</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3 my-lg-2 my-2">
+                                            <div class="form-group m-0">
+                                                <select class="form-control" name="new_watch_type" id="newwatchtype" title="Watch Type" required>
+                                                    <option value="No" selected>Select Watch Type</option>
+                                                    <option value="couple">Couple</option>
+                                                    <option value="boys">Boys</option>
+                                                    <option value="girls">Girls</option>
+                                                    <option value="man">Man</option>
+                                                    <option value="woman">Woman</option>
+                                                    <option value="boysgirls">Boys & Girls</option>
+                                                    <option value="menwomen">Men & Women</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2 my-lg-2 my-2">
+                                            <div class="form-outline">
+                                                <input type="text" name="newram" id="newram" class="form-control" title="RAM" value="No" required>
+                                                <label for="newram" class="form-label">RAM</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2 my-lg-2 my-2">
+                                            <div class="form-outline">
+                                                <input type="text" name="newrom" id="newrom" class="form-control" title="ROM" value="No" required>
+                                                <label for="newrom" class="form-label">ROM</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 my-lg-2 my-2">
+                                            <textarea name="new_product_description_data" id="new_product_description_data" rows="10" class="form-control myckeditor" title="Product Descriptions"></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            
+
+
+                            {% comment %} Product General Information {% endcomment %}
+                            <div class="card-body p-lg-5 p-sm-3 step" style="display: none;">
+                                <div
+                                    class="modal-header pt-0 font-weight-bold d-flex justify-content-center text-uppercase">
+                                    <span>Product General Details</span>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="row">
+                                        <div class="col-12 my-lg-2 my-2">
+                                            <textarea name="new_general_data" id="new_general_data" rows="10" class="form-control myckeditor" title="Product General Details"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {% comment %} Product Display Information {% endcomment %}
+                            <div class="card-body p-lg-5 p-sm-3 step" style="display: none;">
+                                <div class="modal-header pt-0 font-weight-bold d-flex justify-content-center text-uppercase">
+                                    <span>Product Display Details</span>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="row">
+                                        <div class="col-lg-2 my-lg-2 my-2">
+                                            <label for="displayshow">Display Panel Show/Hide</label>
+                                        </div>
+                                        <div class="col-lg-10 my-lg-2 my-2">
+                                            <div class="form-group">
+                                                <select class="form-control newdisplayshow" name="newdisplayshow" id="newdisplayshow" title="Display Panel Show" required>
+                                                    <option selected value="show">Show</option>
+                                                    <option value="hide">Hide</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row newdisplayshowTextarea">
+                                        <div class="col-12 my-lg-2 my-2">
+                                            <textarea name="new_display_data" id="new_display_data" rows="10" class="form-control myckeditor" title="Product Display Informations"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {% comment %} Product Connectivity Information {% endcomment %}
+                            <div class="card-body p-lg-5 p-sm-3 step" style="display: none;">
+                                <div class="modal-header pt-0 font-weight-bold d-flex justify-content-center text-uppercase">
+                                    <span>Product Connectivity Details</span>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="row">
+                                        <div class="col-lg-2 my-lg-2 my-2">
+                                            <label>Connectivity Panel Show/Hide</label>
+                                        </div>
+                                        <div class="col-lg-10 my-lg-2 my-2">
+                                            <div class="form-group">
+                                                <select class="form-control newconnectivityshow" name="newconnectivityshow" id="newconnectivityshow" title="Connectivity Show" required>
+                                                    <option value="show">Show</option>
+                                                    <option value="hide">Hide</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row newconnectivityshowTextarea">
+                                        <div class="col-12 my-lg-2 my-2">
+                                            <textarea name="new_connectivity_data" id="new_connectivity_data" rows="10" class="form-control myckeditor" title="Product Connectivity Details"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {% comment %} Product OS & Processor Information {% endcomment %}
+                            <div class="card-body p-lg-5 p-sm-3 step" style="display: none;">
+                                <div
+                                    class="modal-header pt-0 font-weight-bold d-flex justify-content-center text-uppercase">
+                                    <span>Product OS & Processor Details</span>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="row">
+                                        <div class="col-lg-3 my-lg-2 my-2">
+                                            <label for="osprocessorshow">OS & Processer Panel Show/Hide</label>
+                                        </div>
+                                        <div class="col-lg-9 my-lg-2 my-2">
+                                            <div class="form-group">
+                                                <select class="form-control newosprocessorshow" name="newosprocessorshow" id="newosprocessorshow" title="OS & Processer Show" required>
+                                                    <option value="show">Show</option>
+                                                    <option value="hide">Hide</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row newosprocessorshowTextarea">
+                                        <div class="col-12 my-lg-2 my-2">
+                                            <textarea name="new_os_processor_data" id="new_os_processor_data" rows="10" class="form-control myckeditor" title="Product OS & Processer Deatils"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {% comment %} Product Cloths Information {% endcomment %}
+                            <div class="card-body p-lg-5 p-sm-3 step" style="display: none;">
+                                <div
+                                    class="modal-header pt-0 font-weight-bold d-flex justify-content-center text-uppercase">
+                                    <span>Product Cloths Details</span>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="row">
+                                        <div class="col-lg-2 my-lg-2 my-2">
+                                            <label>Clothes Panel Show/Hide</label>
+                                        </div>
+                                        <div class="col-lg-10 my-lg-2 my-2">
+                                            <div class="form-group">
+                                                <select class="form-control newclothesshow" name="newclothesshow" id="newclothesshow" title="Clothes Show" required>
+                                                    <option value="show">Show</option>
+                                                    <option value="hide">Hide</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row newclotheshowTextarea">
+                                        <div class="col-12 my-lg-2 my-2">
+                                            <textarea name="new_clothes_data" id="new_clothes_data" rows="10" class="form-control myckeditor" title="Product Clothes Deatils"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {% comment %} Product Dimensions / Warranty Information {% endcomment %}
+                            <div class="card-body p-lg-5 p-sm-3 step" style="display: none;">
+                                <div
+                                    class="modal-header pt-0 font-weight-bold d-flex justify-content-center text-uppercase">
+                                    <span>Product Dimensions / Warranty Details</span>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="row">
+                                        <div class="col-lg-3 my-lg-2 my-2">
+                                            <label>Dimensions/Warranty Panel Show/Hide</label>
+                                        </div>
+                                        <div class="col-lg-9 my-lg-2 my-2">
+                                            <div class="form-group">
+                                                <select class="form-control newdimwarrshow" name="newdimwarrshow" id="newdimwarrshow" title="Dimensions/Warranty Show" required>
+                                                    <option value="show">Show</option>
+                                                    <option value="hide">Hide</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row newdimwarrshowTextarea">
+                                        <div class="col-12 my-lg-2 my-2">
+                                            <textarea name="new_dimension_warranty_data" id="new_dimension_warranty_data" rows="10" class="form-control myckeditor" title="Product Dimensions And Warranty Details"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {% comment %} Product Upload Images {% endcomment %}
+                            <div class="card-body p-md-5 p-sm-3 step" style="display: none;">
+                                <div
+                                    class="modal-header pt-0 font-weight-bold d-flex justify-content-center text-uppercase">
+                                    <span>Select Images</span>
+                                </div>
+
+                                <div class="mt-4">
+                                    <div class="row mb-4">
+                                        <div class="col">
+                                            <figure class="d-flex justify-content-center">
+                                                <div class="userimage rounded p-3 shadow cursor-pointer position-relative" style="width: 15rem; height: 15rem;">
+                                                    <img src="{% static 'assets/img/uploadimage.png' %}" alt="" class="chooseproimage1 w-100 h-100 object-fit-scale rounded" onclick="targeimage('.chooseproimageinput1')">
+                                                    <input type="file" name="nproimage1" class="chooseproimageinput1 form-control d-none" accept=".png,.jpg,.jpeg" required>
+                                                    <div class="uploadProductImage1 text-center position-absolute" style="bottom: 10%; left: 50%; width: max-content; transform: translate(-50%, -50%);">Upload Product Image1</div>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                        <div class="col">
+                                            <figure class="d-flex justify-content-center">
+                                                <div class="userimage rounded p-3 shadow cursor-pointer position-relative" style="width: 15rem; height: 15rem;">
+                                                    <img src="{% static 'assets/img/uploadimage.png' %}" alt="" class="chooseproimage2 w-100 h-100 object-fit-scale rounded" onclick="targeimage('.chooseproimageinput2')">
+                                                    <input type="file" name="nproimage2" class="chooseproimageinput2 form-control d-none" accept=".png,.jpg,.jpeg" required>
+                                                    <div class="uploadProductImage2 text-center position-absolute" style="bottom: 10%; left: 50%; width: max-content; transform: translate(-50%, -50%);">Upload Product Image2</div>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                        <div class="col">
+                                            <figure class="d-flex justify-content-center">
+                                                <div class="userimage rounded p-3 shadow cursor-pointer position-relative" style="width: 15rem; height: 15rem;">
+                                                    <img src="{% static 'assets/img/uploadimage.png' %}" alt="" class="chooseproimage3 w-100 h-100 object-fit-scale rounded" onclick="targeimage('.chooseproimageinput3')">
+                                                    <input type="file" name="nproimage3" class="chooseproimageinput3 form-control d-none" accept=".png,.jpg,.jpeg" required>
+                                                    <div class="uploadProductImage3 text-center position-absolute" style="bottom: 10%; left: 50%; width: max-content; transform: translate(-50%, -50%);">Upload Product Image3</div>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                        <div class="col">
+                                            <figure class="d-flex justify-content-center">
+                                                <div class="userimage rounded p-3 shadow cursor-pointer position-relative" style="width: 15rem; height: 15rem;">
+                                                    <img src="{% static 'assets/img/uploadimage.png' %}" alt="" class="chooseproimage4 w-100 h-100 object-fit-scale rounded" onclick="targeimage('.chooseproimageinput4')">
+                                                    <input type="file" name="nproimage4" class="chooseproimageinput4 form-control d-none" accept=".png,.jpg,.jpeg">
+                                                    <div class="uploadProductImage4 text-center position-absolute" style="bottom: 10%; left: 50%; width: max-content; transform: translate(-50%, -50%);">Upload Product Image4</div>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                        <div class="col">
+                                            <figure class="d-flex justify-content-center">
+                                                <div class="userimage rounded p-3 shadow cursor-pointer position-relative" style="width: 15rem; height: 15rem;">
+                                                    <img src="{% static 'assets/img/uploadimage.png' %}" alt="" class="chooseproimage5 w-100 h-100 object-fit-scale rounded" onclick="targeimage('.chooseproimageinput5')">
+                                                    <input type="file" name="nproimage5" class="chooseproimageinput5 form-control d-none" accept=".png,.jpg,.jpeg">
+                                                    <div class="uploadProductImage5 text-center position-absolute" style="bottom: 10%; left: 50%; width: max-content; transform: translate(-50%, -50%);">Upload Product Image5</div>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            {% comment %} Buttons {% endcomment %}
+                            <div class="card-footer justify-content-between">
+                                <button type="button" class="action back btn btn-outline-success" style="display: none">Back</button>
+                                <button type="button" class="action next btn btn-outline-success float-right" type="button">Next</button>
+                                <button type="submit" class="action submit btn btn-outline-primary float-right" style="display: none">Submit</button>
+                                <a href="{% url 'newProduct' %}" class="btn btn-outline-secondary float-right mr-3">Close</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock newProductsDeatils %}

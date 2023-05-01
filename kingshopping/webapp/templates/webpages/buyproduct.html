@@ -1,0 +1,254 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} Order {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+
+
+<header class="shadow">
+    <a href="/" class="logo w-100 d-flex justify-content-center" title="King Shopping">
+        <img src="{% static 'assets/images/demos/demo-4/logo1.png' %}" alt="King Shopping Logo" width="105" height="25">
+        <h5 class="m-0 text-weight-bold text-uppercase text-primary">King Shopping</h5>
+    </a>
+</header>
+<main class="main">
+    <div class="mt-3"></div>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-9">
+
+                <div class="page-content">
+                    <div class="product-details-top">
+
+                        <div class="accordion" id="accordionExample">
+
+                            <form method="POST" id="productbuyformaction">
+                                {% csrf_token %}
+
+                                {% comment %} Account Check Panel {% endcomment %}
+                                <div class="card my-3">
+                                    <div class="card-header p-0" id="LoginPanel">
+                                        <div class="cursor-pointer bg-primary d-flex justify-content-start align-items-center py-3 px-5 text-white h5 mb-0" style="height: 6vh;">
+                                            <div class="display-5 mr-3">1</div>
+                                            <div class="display-5 ml-3 text-uppercase">Login</div>
+                                        </div>
+                                    </div>
+                            
+                                    <div id="LoginPanel" class="border border-2 border-primary" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-8 p-4">
+                                                    <div class="left">
+
+                                                        <div class="w-100">
+                                                            <div class="w-100 d-flex py-2">
+                                                                <div class="w-25">
+                                                                    <div>Name</div>
+                                                                </div>
+                                                                <div class="w-50 font-weight-bold">
+                                                                    <h6 id="loginuseror">{{userdetails.username}}</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="w-100 d-flex py-2">
+                                                                <div class="w-25">
+                                                                    <div>Email</div>
+                                                                </div>
+                                                                <div class="w-50 font-weight-bold">
+                                                                    <h6>{{userdetails.email}}</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="text-primary cursor-pointer font-weight-bold my-2" data-toggle="modal" data-target="#logoutModal">
+                                                                Logout & Sign In to another account
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center">
+                                                <p>Please note that clicking 'Logout' your will lose all items in cart and will be redirected to King Shopping home page.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {% comment %} Delivery Address In Panel {% endcomment %}
+                                <div class="card my-3">
+                                    <div class="card-header p-0" id="addressPanel">
+                                        <div class="cursor-pointer bg-primary d-flex justify-content-start align-items-center py-3 px-5 text-white h5 mb-0" style="height: 6vh;">
+                                            <div class="display-5 mr-3">2</div>
+                                            <div class="display-5 ml-3 text-uppercase">delivery address</div>
+                                        </div>
+                                    </div>
+                            
+                                    <div id="addressPanel" class="border border-2 border-primary" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            {% for addr in address.alladdress %}
+                                                <div class="px-3 my-3 d-flex w-100 rounded">
+                                                    <input type="radio" name="ordeliveryaddr" class="orderdeliveryaddress cursor-pointer" value="{{addr.addid}}" {% if addr.addid == address.cartaddr %} checked {% endif %} style="width: 2rem;"/>
+                                                    <div>
+                                                        <div class="form-outline my-2 ml-3 py-2 px-3 w-100">
+                                                            <label for="" class="form-label m-0 w-100 cursor-pointer">{{addr.addtitle}}</label>
+                                                            <p>{{addr.adddescription}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {% comment %} Customer Order Panel {% endcomment %}
+                                <div class="card my-3">
+                                    <div class="card-header p-0" id="ordersummary">
+                                        <div class="cursor-pointer bg-primary d-flex justify-content-start align-items-center py-3 px-5 text-white h5 mb-0" style="height: 6vh;">
+                                            <div class="display-5 mr-3">3</div>
+                                            <div class="display-5 ml-3 text-uppercase">Order Summary</div>
+                                            <div class="ordeproductrCheck h6 m-0 text-white ml-4 d-none">
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                                    <div id="ordersummary" class="border border-2 border-primary" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body p-0">
+                                            <div class="p-4">
+                                                {% for product in products.userproduct %}
+                                                    <div class="py-3 shadow d-flex justify-content-between rounded">
+                                                        <div class="d-flex">
+                                                            <div class="bg-white">
+                                                                <figure class="product-media bg-white py-2" style="width: 150px; height: 150px; overflow: hidden;">
+                                                                    <img src="{{product.proimage1.url}}" alt="Product image" class="p-2 bg-white w-100 h-100 object-fit-scale">
+                                                                </figure>
+                                                            </div>
+                                                            <div class="ml-5 py-3">
+                                                                <div class="pb-1">
+                                                                    <a href="/product?proname={{product.proname|slice:70}}&proid={{product.proid}}&procolor={{product.procolor}}&proprice={{product.proprice}}" title="{{product.proname}}">
+                                                                        <div class="product-title h-25">
+                                                                            {{product.proname}}
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="product-price py-2">
+                                                                    <div>
+                                                                        <i class="fas fa-rupee-sign pr-2"></i>
+                                                                        <span class="cartproprice">{{product.proprice}}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="my-3 d-flex">
+                                                                    <div class="mx-1">Delivery By </div>
+                                                                    <div class="mx-1">Monday Oct 17 </div>
+                                                                    <div class="mx-2">|</div>
+                                                                    <div class="text-success font-weight-bolder">Free</div>
+                                                                    <div class="text-decoration-through ml-2">
+                                                                        <span class="icon-rupee">40</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="cart-product-quantity">
+                                                                    <input type="number" name="orproductqty" class="orproductqty form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pr-4 pt-2 h5">
+                                                            <div class="cartProductRemoveBtn text-danger cursor-pointer" title="Remove" data-click="{{product.proid}}" data-url="buyproducts">
+                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {% comment %} Payment Options Panel {% endcomment %}
+                                <div class="card my-3">
+                                    <div class="card-header p-0" id="paymentPanel">
+                                        <div class="cursor-pointer bg-primary d-flex justify-content-start align-items-center py-3 px-5 text-white h5 mb-0" style="height: 6vh;">
+                                            <div class="display-5 mr-3">4</div>
+                                            <div class="display-5 ml-3 text-uppercase">Payment Options</div>
+                                        </div>
+                                    </div>
+                            
+                                    <div id="paymentPanel" class="border border-2 border-primary" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body p-0">
+                                            <div class="card-body">
+                                                <div class="px-3 my-3 d-flex w-100 rounded">
+                                                    <input type="radio" name="paymentmode" id="cashondelivery" class="cursor-pointer" value="cashondelivery" style="width: 2rem;" checked />
+                                                    <div class="form-outline my-2 ml-3 py-2 px-3 w-100">
+                                                        <label for="cashondelivery" class="form-label m-0 w-100 cursor-pointer text-capitalize">cash on delivery</label>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-outline-primary-2 btn-order w-50">
+                                                    <span class="text-uppercase">Order Now</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            
+                        
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3">
+                <div class="summary summary-cart border-0 bg-white shadow rounded mt-1">
+                    <h3 class="summary-title">Price Details</h3><!-- End .summary-title -->
+
+                    <table class="table table-summary">
+                        <tbody>
+                            <tr class="summary-subtotal">
+                                <td>Price ({{products.totalproducts}} item) :</td>
+                                <td>
+                                    <span class="fas fa-rupee-sign"></span>
+                                    {{products.totalprice}}
+                                </td>
+                            </tr><!-- End .summary-subtotal -->
+                            
+                            <tr class="summary-subtotal">
+                                <td>Delivery Charges :</td>
+                                <td class="text-success">Free</td>
+                            </tr><!-- End .summary-subtotal -->
+
+
+                            <tr class="summary-total">
+                                <td>Total :</td>
+                                <td>
+                                    <span class="fas fa-rupee-sign"></span>
+                                    {{products.totalprice}}
+                                </td>
+                            </tr><!-- End .summary-total -->
+                        </tbody>
+                    </table><!-- End .table table-summary -->
+
+                </div><!-- End .summary -->
+
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <div class="footer-bottom">
+        <div class="container">
+            <p class="footer-copyright">Copyright © 2022 King Shopping. All Rights Reserved.</p><!-- End .footer-copyright -->
+            <figure class="footer-payments">
+                <img src="{% static 'assets/images/payments.png' %}" alt="Payment methods" width="272" height="20">
+            </figure><!-- End .footer-payments -->
+        </div><!-- End .container -->
+    </div><!-- End .footer-bottom -->
+</footer>
+
+
+{% endblock bodycontent %}

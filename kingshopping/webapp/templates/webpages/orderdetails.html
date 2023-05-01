@@ -1,0 +1,235 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} King Shopping | Order Information {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+
+    {% if login_user != None %}
+        <div class="container my-5">
+            
+            <nav>
+                <ul class="d-flex">
+                    <li class="ml-3"><a href="/" class="text-dark">Home</a> / </li>
+                    <li class="ml-3"><a href="/orders/" class="text-dark">My Orders</a> / </li>
+                    <li class="ml-3"><a href="/orders/orderdetails/?prooid={{orderdata.oid}}" class="text-dark">{{orderdata.oid}}</a></li>
+                </ul>
+            </nav>
+            
+            <div class="shadow rounded p-5 d-flex my-4">
+                
+                <div class="address w-50">
+                    <h6>Delivery Address :</h6>
+                    <div class="ml-5">
+                        <h6>{{deliveryaddr.addtitle}}</h6>
+                        <pre class="font-default">{{deliveryaddr.adddescription}}</pre>
+                    </div>
+                </div>
+
+                <div class="phonenumber w-50">
+                    <div>
+                        <h6>Phone Number : </h6>
+                        <h6 class="ml-5">{{userdetails.phone}}</h6>
+                    </div>
+                    <div>
+                        <h6>Order Date : </h6>
+                        <h6 class="ml-5">{{orderdata.ordate}}</h6>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="shadow rounded p-5 d-flex my-4">
+                <div class="progress w-100  position-relative" style="overflow: visible;">
+                    <div class="aniprogressbar progress-bar progress-bar-striped rounded {% if orderdata.productstatus == 'cancel' %}bg-danger {% else %}bg-primary {% endif %}
+                    " role="progressbar"
+                        {% if orderdata.productstatus == 'conform' %} style="--prowidth: 25%;"
+                        {% elif orderdata.productstatus == 'shipped' %} style="--prowidth: 50%;"
+                        {% elif orderdata.productstatus == 'outofdelivery' %} style="--prowidth: 75%;"
+                        {% elif orderdata.productstatus == 'delived' %} style="--prowidth: 100%;"
+                        {% elif orderdata.productstatus == 'cancel' %} style="--prowidth: 100%;"
+                        {% endif %}
+                    ></div>
+
+                    <div class="productstatus h6 m-0 shadow-lg p-3 rounded text-white {% if orderdata.productstatus == 'cancel' %}bg-danger {% else %}bg-success{% endif %}"
+                        {% if orderdata.productstatus == 'conform' %} style="--prowidth: 25%;"
+                        {% elif orderdata.productstatus == 'shipped' %} style="--prowidth: 50%;"
+                        {% elif orderdata.productstatus == 'outofdelivery' %} style="--prowidth: 75%;"
+                        {% elif orderdata.productstatus == 'delived' %} style="--prowidth: 100%;"
+                        {% elif orderdata.productstatus == 'cancel' %} style="--prowidth: 100%;"
+                        {% endif %}
+                    >
+                        {% if orderdata.productstatus == 'conform' %}
+                            Confirmed
+                        {% elif orderdata.productstatus == 'shipped' %}
+                            Shipped
+                        {% elif orderdata.productstatus == 'outofdelivery' %}
+                            Out Of Delivery
+                        {% elif orderdata.productstatus == 'delived' %}
+                            Delivered
+                        {% elif orderdata.productstatus == 'cancel' %}
+                            Cancelled
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="shadow rounded p-5 d-flex my-4 flex-wrap">
+                <div class="bg-white">
+                    <figure class="product-media bg-white py-2" style="width: 150px; height: 150px; overflow: hidden;">
+                        <img src="{{prodata.proimage1.url}}" alt="Product image" class="p-2 bg-white w-100 h-100 object-fit-scale">
+                    </figure>
+                </div>
+
+                <div class="media-body px-3">
+                    <h6 class="media-title font-weight-semibold">
+                        <a href="/product?proname={{prodata.proname|slice:70}}&proid={{prodata.proid}}&procolor={{prodata.procolorname}}&proprice={{prodata.proprice}}" title="{{prodata.proname}}">
+                            <div class="product-title h-25">
+                                {{prodata.proname}}
+                            </div>
+                        </a>
+                    </h6>
+
+                    <h6>QTY : {{orderdata.proqty}}</h6>
+                    <h6>Price : <i class="fas fa-rupee-sign mr-2"></i>{% widthratio prodata.proprice 1 orderdata.proqty %}</h6>
+
+                    <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
+                        <li class="list-inline-item"><a href="/products/{{prodata.cid}}/" class="text-muted" data-abc="true">{{prodata.cid}}</a></li>
+                    </ul>
+
+                    {% if orderdata.returnpro == 'Replace' %}
+                        <div class="alert alert-primary rounded" role="alert">
+                            <strong>This Order Is Replace.</strong>
+                        </div>
+                    {% elif orderdata.returnpro == "Return" and orderdata.productstatus == "delived" %}
+                        <div class="alert alert-success rounded" role="alert">
+                            <strong>This Order Is Return.</strong>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+
+
+            {% comment %} Check The Order Is Cancel {% endcomment %}
+            {% if orderdata.productstatus != 'cancel' %}
+
+                <div class="d-flex shadow rounded p-5 my-4">
+
+                    {% comment %} Show The Order Delivery Date {% endcomment %}
+                    <div class="w-50">
+                        <h6>Delivery Date : </h6>
+                        <div class="ml-5">
+                            {{orderdata.deliveddate}}
+                        </div>
+                    </div>
+
+                    {% comment %} Check Order Is Delivered Yes / No {% endcomment %}
+                    {% if orderdata.productstatus == 'delived' %}
+
+                        {% comment %} Your Order Is Return {% endcomment %}
+                        {% if orderdata.productstatus == 'delived' and orderdata.returnpro == "Return" %}
+                            <div class="w-50">
+                                <h6 class="text-success">Your Product Is Return.</h6>
+                                <span class="ml-5">{{returndate}}</span>
+                            </div>
+
+                        {% comment %} Your Product Is Delived After Replace and Return. {% endcomment %}
+                        {% elif returndate == 0 %}
+
+                            {% comment %} Check the today and Replace/return date {% endcomment %}
+                            {% if todaydate <= orderdata.returndate %}
+
+                                {% comment %} Replace/return before this message show {% endcomment %}
+                                <div class="w-50">
+                                    <h6>Your Product Is Any Change before <span class="text-primary">{{orderdata.returndate}}</span></h6>
+                                    <a href="/orders/return?prorn={{orderdata.oid}}" type="button" class="btn btn-outline-warning rounded">
+                                        Return
+                                    </a>
+                                </div>
+
+                            {% comment %} Return/Replace date after show this message {% endcomment %}
+                            {% else %}
+                                <div class="w-50">
+                                    <h6>Your Product Is Replace / Return Last Date <span class="text-danger">{{orderdata.returndate}}</span></h6>
+                                </div>
+                            {% endif %}
+
+                        {% endif %}
+
+
+                    {% comment %} Delived before Order Cancel Button {% endcomment %}
+                    {% else %}
+                        <div class="w-50">
+
+                            {% comment %} Replace Order cancel show this message {% endcomment %}
+                            {% if orderdata.returnpro == "Replace" %}
+                                <h6>Your Replace Order Is Cancel?</h6>
+
+                            {% comment %} User First Order and show cancel this message {% endcomment %}
+                            {% else %}
+                                <h6>Your Order Is Cancel?</h6>                            
+                            {% endif %}
+
+                            <button type="button" class="btn btn-outline-warning rounded" data-toggle="modal" data-target="#orderCancelModal">
+                                Cancel
+                            </button>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            {% else %}
+            
+                {% comment %} Order Cancel {% endcomment %}
+                <div class="d-flex shadow rounded p-5 my-4">
+                    <div class="w-50">
+                        <h6>Cancel Date : </h6>
+                            <div class="ml-5">
+                            <div>{{orderdata.canceldate}}</div>
+                        </div>
+                    </div>
+
+                    {% comment %} Check Replace Order Is Cancel {% endcomment %}
+                    {% if orderdata.productstatus == 'cancel' and orderdata.returnpro == 'Replace' %}
+                        <div class="w-50">
+                            <h6 class="text-danger">Your Replace Order Is Cancel.</h6>
+                            <span class="ml-5">{{orderdata.canceldate}}</span>
+                        </div>
+
+                    {% else %}
+                        <div class="w-50">
+                            <h6 class="text-danger">Order Is Cancel.</h6>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+    {% comment %} User Is Not Login Then Show this container {% endcomment %}
+    {% else %}
+
+        <div class="container">
+
+            <div class="w-100 h-100 d-flex justify-content-center align-items-center p-5 m-5 shadow rounded">
+                <div class="text-center">
+                    <h4 class="mb-3">Please! Sign In In Your Account?</h4>
+                    <button type="button" class="btn btn-outline-primary-2" data-toggle="modal" data-target="#signin-modal">
+                        <span>LOG IN</span>
+                        <i class="icon-long-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock bodycontent %}
+
+
+{% block pageModals %}
+    {% include 'modals/orderCancelModal.html' %}
+{% endblock pageModals %}

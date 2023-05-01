@@ -1,0 +1,84 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} King Shopping | Order Information {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+
+    {% if login_user != None %}
+        <div class="container my-5">
+            
+            <nav>
+                <ul class="d-flex">
+                    <li class="ml-3"><a href="/" class="text-dark">Home</a> / </li>
+                    <li class="ml-3"><a href="/orders/" class="text-dark">My Orders</a> / </li>
+                    <li class="ml-3"><a href="/orders/orderdetails/?prooid={{orderid}}" class="text-dark">{{orderid}}</a> / </li>
+                    <li class="ml-3"><a href="/orders/return/" class="text-dark">Return</a> </li>
+                </ul>
+            </nav>
+
+            <div class="w-100 d-flex justify-content-center align-items-center">
+                <div class="shadow rounded p-5 my-4 w-50">
+                
+
+                    <h4 class="text-center">Product Return</h4>
+                    
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="form-check w-50">
+                                <label class="form-check-label cursor-pointer" for="rnproexchange">
+                                    <input type="radio" name="rnprocess" id="rnproexchange" value="Replace" style="width: 2.3rem;" required checked>
+                                    Deliver Product Replace
+                                </label>
+                            </div>
+
+                            <div class="form-check w-50">
+                                <label class="form-check-label cursor-pointer" for="rnproduct">
+                                    <input type="radio" name="rnprocess" id="rnproduct" value="Return" style="width: 2.3rem;" required>
+                                    Return Product
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="returnresone">Why Are Your Product Return? <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="returnresone" name="returnresone" required autofocus>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <textarea name="rncomment" id="comment" rows="10" class="form-control" required></textarea>
+                        </div>
+
+                        <div class="form-footer border-0 m-0 p-0 justify-content-around">
+                            <a href="/orders/orderdetails/?prooid={{orderid}}" class="btn btn-outline-warning">
+                                <span>Cancel</span>
+                            </a>
+                            <button type="submit" class="btn btn-outline-primary-2">
+                                <span>Submit</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div> 
+
+    {% else %}
+    
+        <div class="container">
+
+            <div class="w-100 h-100 d-flex justify-content-center align-items-center p-5 m-5 shadow rounded">
+                <div class="text-center">
+                    <h4 class="mb-3">Please! Sign In In Your Account?</h4>
+                    <button type="button" class="btn btn-outline-primary-2" data-toggle="modal" data-target="#signin-modal">
+                        <span>LOG IN</span>
+                        <i class="icon-long-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+            
+    {% endif %}
+    
+{% endblock bodycontent %}

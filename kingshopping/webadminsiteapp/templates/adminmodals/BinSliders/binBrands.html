@@ -1,0 +1,54 @@
+<div class="modal right fade" id="brandsSliderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog d-flex align-items-center position-absolute m-0 h-100" role="document" style="max-width: 95%; width: 50rem;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-capitalize">Brands</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pb-4" style="height: 55rem; overflow: scroll;">
+                <div class="container-fluid p-0">
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="binBrandsDataTable" width="100%" cellspacing="0">
+                                    <thead>                                            
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Category Name</th>
+                                            <th>Brand Name</th>
+                                            <th>Remove Date</th>
+                                            <th class="nosort w-none">Controls</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        {% for rmbrand in removebrands %}
+                                            <tr>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>{{rmbrand.cid}}</td>
+                                                <td>{{rmbrand.bname}}</td>
+                                                <td>{{rmbrand.brmdate}}</td>
+                                                <td class="position-relative">
+                                                    <div class="tablesubmenu justify-content-around d-flex">
+                                                        <button class="binrestorebtn modalbtn btn btn-sm btn-primary" title="Restore" data-table="brands" data-restore="{{rmbrand.bid}}">
+                                                            <i class="fas fa-undo"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

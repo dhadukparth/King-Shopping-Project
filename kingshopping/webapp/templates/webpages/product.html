@@ -1,0 +1,341 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} {{prodata.proname}} - Product  {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+<style>
+    .zoomContainer{
+        display: none;
+    }
+
+</style>
+
+    <main class="main">
+        <div class="mt-3"></div>
+
+        <div class="page-content">
+            <div class="container">
+
+
+                <div class="product-details-top">
+                    <div class="row">
+
+                        {% comment %} Select Product All Image Gallary {% endcomment %}
+                        <div class="col-md-6">
+                            <div class="product-gallery product-gallery-vertical">
+                                <div class="row">
+                                    <figure class="product-main-image d-flex justify-content-center" style="width: 500px; height:500px; overflow: hidden;">
+                                        <img id="product-zoom" src="{{prodata.proimage1.url}}" alt="product image" class="w-100 h-100 object-fit-scale">
+
+                                        <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                            <i class="icon-arrows"></i>
+                                        </a>
+                                    </figure><!-- End .product-main-image -->
+
+                                    <div id="product-zoom-gallery" class="product-image-gallery">
+                                        <a class="product-gallery-item cursor-pointer active" data-image="{{prodata.proimage1.url}}" style="width: 100px; height:100px;">
+                                            <img src="{{prodata.proimage1.url}}" alt="product side" class="w-100 h-100 object-fit-scale">
+                                        </a>
+
+                                        <a class="product-gallery-item cursor-pointer" data-image="{{prodata.proimage2.url}}" style="width: 100px; height:100px;">
+                                            <img src="{{prodata.proimage2.url}}" alt="product cross" class="w-100 h-100 object-fit-scale">
+                                        </a>
+
+                                        <a class="product-gallery-item cursor-pointer" data-image="{{prodata.proimage3.url}}" style="width: 100px; height:100px;">
+                                            <img src="{{prodata.proimage3.url}}" alt="product with model" class="w-100 h-100 object-fit-scale">
+                                        </a>
+
+                                        {% if prodata.proimage4 != "noimage.png" %}
+                                        <a class="product-gallery-item cursor-pointer" data-image="{{prodata.proimage4.url}}" style="width: 100px; height:100px;">
+                                            <img src="{{prodata.proimage4.url}}" alt="product back" class="w-100 h-100 object-fit-scale">
+                                        </a>
+                                        {% endif %}
+
+                                        {% if prodata.proimage5 != "noimage.png" %}
+                                            <a class="product-gallery-item cursor-pointer" data-image="{{prodata.proimage5.url}}" style="width: 100px; height:100px;">
+                                                <img src="{{prodata.proimage5.url}}" alt="product back" class="w-100 h-100 object-fit-scale">
+                                            </a>
+                                        {% endif %}
+
+
+                                        {% comment %} Wishlist Button {% endcomment %}
+                                        {% if wishid != 'wishactive' %}
+                                            <div class="details-action-wrapper wishlistIconAddBtn" id="wishlistIcon" data-click="{{prodata.proid}}">
+                                                <div class="btn-product btn-wishlist cursor-pointer" title="Wishlist"></div>
+                                            </div>
+                                        {% else %}
+                                            <div class="details-action-wrapper wishlistIconRemoveBtn" id="wishlistIcon" data-click="{{prodata.proid}}">
+                                                <div class="btn-product btn-wishlist cursor-pointer active" title="Wishlist"></div>
+                                            </div>
+                                        {% endif %}
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% comment %} Select Product Details {% endcomment %}
+                        <div class="col-md-6">
+                            <div class="product-details pl-4">
+                                <h1 class="product-title h-100">{{prodata.proname}}</h1>
+
+                                <div class="product-price">
+                                    <i class="fas fa-rupee-sign pr-2"></i>{{prodata.proprice}}
+                                </div>
+
+                                {% if prodata.prostock == 0 %}
+                                    <div class="text-danger h6">
+                                        Out of Stock
+                                    </div>
+                                {% endif %}
+
+                                <div class="product-content">
+                                    <span class="font-weight-bold">Short Description : </span>
+                                    <div class="proshortdetails" style="padding-left: 5rem;">
+                                        <div>{{prodata.prodescription | safe | slice:200}}</div>
+                                        <a href="#productFullDescription">Learn More</a>
+                                    </div>
+                                </div>
+
+                                {% comment %} Product All Colors {% endcomment %}
+                                {% if sameproduct_changecolor_count != 1 %}
+                                    <div class="details-filter-row details-row-size">
+                                        <span class="font-weight-bold">Color : </span>
+                                        <div class="product-nav product-nav-thumbs ml-3">
+                                            {% for procolor in sameproduct_changecolor %}
+                                                <figure class="w-100 h-100 mx-2 my-0">
+                                                    <a href="/product?proname={{procolor.proname|slice:70}}&proid={{procolor.proid}}&procolor={{procolor.procolorname}}&proprice={{procolor.proprice}}" class="{% if procolor.procolorname == urlprocolor %}border p-2{% endif %}" style="width: 6rem; height: 6rem;">
+                                                        <img src="{{procolor.proimage1.url}}" alt="product side" class="hint--bottom w-100 h-100 object-fit-scale" data-hint="{{procolor.procolorname|capfirst}}">
+                                                    </a>
+                                                </figure>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                {% comment %} Product Color Releted Product Size {% endcomment %}
+                                {% if productclothsizecount != 1 %}
+                                    <div class="details-filter-row details-row-size">
+                                        <span class="font-weight-bold">Size : </span>
+                                        <div class="product-nav product-nav-thumbs ml-3">
+                                            {% for proclothsize in productclothsize %}
+                                                {% if proclothsize.clothes_size != "No" %}
+                                                    <a href="/product?proname={{proclothsize.proname|slice:70}}&proid={{proclothsize.proid}}&procolor={{proclothsize.procolor}}&proprice={{proclothsize.proprice}}" title="{{proclothsize.procolorname|capfirst}}" style="width: 6rem; height: 4rem;">
+                                                        <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+                                                            <h4 class="m-0">{{proclothsize.clothes_size}}</h4>
+                                                        </div>
+                                                    </a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <div class="product-details-action" id="productFullDescription">
+
+                                    {% if cartpro != 'cartactive' %}
+                                        <div class="addtocartbtn btn-product btn-cart cursor-pointer" data-click="{{prodata.proid}}" title="Add to cart">
+                                            <span>add to cart</span>
+                                        </div>
+                                    {% else %}
+                                        <a href="/cart/" class="btn-product btn-cart cursor-pointer" title="Go to cart">
+                                            <span>Go to cart</span>
+                                        </a>
+                                        {% endif %}
+
+                                    {% if prodata.prostock != 0 %}
+                                        <button type="button" class="buyproductnow btn btn-product btn-cart icon-cart-arrow-down" data-proid="{{prodata.proid}}" title="Buy Product">
+                                            <span>buy now</span>
+                                        </button>
+                                    {% endif %}
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+
+                <div class="product-details-tab">
+                    <ul class="nav nav-pills justify-content-center" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-selected="true">Description</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="product-generan-link" data-toggle="tab" href="#product-generan-tab" role="tab" aria-selected="false">General</a>
+                        </li>
+
+                        {% if productdetails.displaydata.show_display == "show" %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-display-link" data-toggle="tab" href="#product-display-tab" role="tab" aria-selected="false">Display</a>
+                            </li>
+                        {% endif %}
+
+                        {% if productdetails.connectivitydata.show_connectivity == "show" %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-connectivity-link" data-toggle="tab" href="#product-connectivity-tab" role="tab" aria-selected="false">Connectivity</a>
+                            </li>
+                        {% endif %}
+
+                        {% if productdetails.osprocesserdata.show_osprocesser == "show" %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-osprocesser-link" data-toggle="tab" href="#product-osprocesser-tab" role="tab" aria-selected="false">OS & Processer</a>
+                            </li>
+                        {% endif %}
+
+                        {% if productdetails.clothesdata.show_clothes == "show" %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-clothes-link" data-toggle="tab" href="#product-clothes-tab" role="tab" aria-selected="false">Clothes Details</a>
+                            </li>
+                        {% endif %}
+
+                        {% if productdetails.dim_warr_data.show_dimwarr == "show" %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-dimension-warranty-link" data-toggle="tab" href="#product-dimension-warranty-tab" role="tab" aria-selected="false">Dimensions/Warranty</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                    <div class="tab-content">
+
+                        {% comment %} Product Full Description {% endcomment %}
+                        <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
+                            <div class="product-desc-content">
+                                <div class="font-default ml-5">{{prodata.prodescription | safe}}</div>
+                            </div>
+                        </div>
+
+
+                        {% comment %} Product General Details {% endcomment %}
+                        <div class="tab-pane fade" id="product-generan-tab" role="tabpanel" aria-labelledby="product-generan-link">
+                            <div class="product-desc-content">
+                                {{productdetails.generaldata.general_details | safe}}
+                            </div>
+                        </div>
+
+
+                        {% comment %} Product Display Details {% endcomment %}
+                        {% if productdetails.displaydata.show_display != "No" %}
+                            <div class="tab-pane fade" id="product-display-tab" role="tabpanel" aria-labelledby="product-display-link">
+                                <div class="product-desc-content">
+                                    {{productdetails.displaydata.display_details | safe}}
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                        {% comment %} Product Connectivity Details {% endcomment %}
+                        {% if productdetails.connectivitydata.show_connectivity == "show" %}
+                            <div class="tab-pane fade" id="product-connectivity-tab" role="tabpanel" aria-labelledby="product-connectivity-link">
+                                <div class="product-desc-content">
+                                    {{productdetails.connectivitydata.connectivity_details | safe}}
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                        {% comment %} Product OS & Processer Details {% endcomment %}
+                        {% if productdetails.osprocesserdata.show_osprocesser == "show" %}
+                            <div class="tab-pane fade" id="product-osprocesser-tab" role="tabpanel" aria-labelledby="product-osprocesser-link">
+                                <div class="product-desc-content">
+                                    {{productdetails.osprocesserdata.osprocesser_details | safe}}
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                        {% comment %} Product Clothes Details {% endcomment %}
+                        {% if productdetails.clothesdata.show_clothes == "show" %}
+                            <div class="tab-pane fade" id="product-clothes-tab" role="tabpanel" aria-labelledby="product-clothes-link">
+                                <div class="product-desc-content">
+                                    {{productdetails.clothesdata.show_clothes | safe}}
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                        {% comment %} Product Dimensions & Warranty Details {% endcomment %}
+                        {% if productdetails.dim_warr_data.show_dimwarr == "show" %}
+                            <div class="tab-pane fade" id="product-dimension-warranty-tab" role="tabpanel" aria-labelledby="product-dimension-warranty-link">
+                                <div class="product-desc-content">
+                                    {{productdetails.dim_warr_data.dimension_warranty_details | safe}}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+
+                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                    data-owl-options='{
+                        "nav": true, 
+                        "dots": true,
+                        "margin": 20,
+                        "loop": true,
+                        "autoplay": true,
+                        "autoplayTimeout": 2000,
+                        "autoplayHoverPause": false,
+                        "responsive": {
+                            "0": {
+                                "items":1
+                            },
+                            "480": {
+                                "items":2
+                            },
+                            "768": {
+                                "items":3
+                            },
+                            "992": {
+                                "items":4
+                            },
+                            "1200": {
+                                "items":5
+                            }
+                        }
+                    }'>
+
+                    {% for relatedpro in reletedproduct %}
+                        <div class="product product-7 text-center">
+                            <figure class="product-media">
+                                        
+                                <a href="/product?proname={{relatedpro.proname}}&proid={{relatedpro.proid}}&procolor={{relatedpro.procolorname}}&proprice={{relatedpro.proprice}}" class="bg-white p-3 d-flex justify-content-center"  style="height: 200px;">
+                                    <img src="{{relatedpro.proimage1.url}}" alt="Product image" class="product-image w-100 h-100 object-fit-scale">
+                                </a>
+
+                                <div class="product-action">
+                                    <div class="addtocartbtn btn-product btn-cart cursor-pointer" title="Add to cart" data-click="{{relatedpro.proid}}"></div>
+                                    <a href="/product?proname={{relatedpro.proname}}&proid={{relatedpro.proid}}&procolor={{relatedpro.procolorname}}&proprice={{relatedpro.proprice}}" class="btn-product btn-quickview" title="Quick view"></a>
+                                </div>
+                            </figure>
+
+                            <div class="product-body">
+                                <div class="product-cat d-flex justify-content-around mb-2">
+                                    <a href="/products/{{relatedpro.cid}}/">{{relatedpro.cid}}</a>
+                                    <a href="/products/{{relatedpro.cid}}/{{relatedpro.bid}}/">{{relatedpro.bid}}</a>
+                                </div>
+                                <h3 class="product-title">
+                                    <a href="/product?proname={{relatedpro.proname}}&proid={{relatedpro.proid}}&procolor={{relatedpro.procolorname}}&proprice={{relatedpro.proprice}}">
+                                        {{relatedpro.proname|slice:60}}
+                                    </a>
+                                </h3>
+                                <div class="product-price">
+                                    <i class="fas fa-rupee-sign pr-2"></i> {{relatedpro.proprice}}
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div><
+        </div>
+    </main>
+
+{% endblock bodycontent %}

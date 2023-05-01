@@ -1,0 +1,39 @@
+<div class="modal fade" id="newBrand" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Brand</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="/adminsideproweb/brands/">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="form-group">
+                            <select name="brCategory" class="form-select"/>
+                                <option value="">Select Category</option>
+                                {% for allcat in getallcat %}
+                                    <option value={{allcat.catname}}>{{allcat.catname}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-outline my-4">
+                            <input type="text" name="brName" id="brandName" class="form-control">
+                            <label for="brandName" class="form-label">Brand Name</label>
+                        </div>
+                        <div class="form-outline my-4">
+                            <textarea name="brDescription" id="brandDescription" rows="5" class="form-control"></textarea>
+                            <label class="form-label" for="brandDescription">Brand Description</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

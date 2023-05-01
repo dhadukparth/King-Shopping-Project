@@ -1,0 +1,62 @@
+{% extends 'common/admincommon.html' %}
+{% block WebTitle %} Orders {% endblock WebTitle %}
+{% block BodyContent %}
+
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Orders</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Customer Name</th>
+                                <th>Product</th>
+                                <th>QTY</th>
+                                <th>Order Date</th>
+                                <th>Product Price</th>
+                                <th>Product Status</th>
+                                <th class="nosort th-last-5">Controls</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for odata in orderRecords %}
+                                <tr>
+                                    <td class="text-capitalize">{{forloop.counter}}</td>
+                                    <td class="text-capitalize">{{odata.firstname}} {{odata.lastname}}</td>
+                                    <td class="text-capitalize">{{odata.proname|slice:30}}..</td>
+                                    <td class="text-capitalize">{{odata.proqty}}</td>
+                                    <td class="text-capitalize">{{odata.ordate}}</td>
+                                    <td class="text-capitalize">
+                                        <span class="fas fa-rupee-sign"></span>
+                                        {% widthratio odata.proprice 1 odata.proqty %}
+                                    </td>
+                                    <td class="text-capitalize">{{odata.productstatus}}</td>
+                                    <td class="position-relative">
+                                        <div class="tablesubmenu justify-content-around d-flex">
+                                            <button class="ordereditmodalbtn modalbtn btn btn-sm btn-outline-primary" title="View" type="button" data-click="{{odata.oid}}" data-target="orders">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock BodyContent %}
+
+{% block ModalContent %}
+    {% include 'adminmodals/productEditModal.html' %}
+    {% include 'adminmodals/orderdetailsModal.html' %}
+{% endblock ModalContent %}

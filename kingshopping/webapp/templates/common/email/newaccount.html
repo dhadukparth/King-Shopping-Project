@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>King Shopping</title>
+</head>
+<body style="user-select: none; font-family: sans-serif;">
+
+    <table align="center" style="border-spacing: 0;">
+        <thead style="background-color: #000; border-radius: 10px;">
+            <tr>
+                <th style="padding: 1rem 2rem; text-align: left;">
+                    <img src="http://parthpateldev.ml/images/logoblue.png" alt="King Shopping Logo" style="width: 2rem; height: 2rem;">
+                    <span style="font-family: 'Times New Roman', Times, serif; margin-left: .5rem; font-size: 2.5rem; color: white;">KS</span>
+                </th>
+                <th style="padding: .5rem 2rem; text-align: right;">
+                    <div style="font-size: 1.5rem; color: #3499fe;"><span style="font-family: 'Times New Roman', Times, serif; color: white;">King</span> Shopping</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="2" style="padding: 1.5rem 2rem; text-align: center; border: 1px dashed black; border-bottom: 0; border-top: 0;">
+                    <div style="font-size: 1.5rem; color: green; font-weight: 700;">{{mailsubject}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"  style="padding: 1rem 1rem; text-align: justify; border: 1px dashed black; border-top: 0px; font-size: 1.2rem;">
+                    <div>Hello <strong style="color: teal;">{{username}},</strong></div>
+                    <p>
+                        Your Account Has been successfully created.<br>
+                        We hope you enjoy using our services. Please don't hesitate to contact us if you have any questions or need help getting started.<br><br>
+                        Thank You.
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!-- Change Address Modal -->
+<div class="modal fade" id="changeaddressModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            
+            <form action='' method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+                    <form action="" method="POST">
+                        <div class="form-box">
+                            <div class="text-center mb-3">
+                                <h4>Select Delivery Address</h4>
+                            </div>
+                            <div>
+                                {% for alladdr in useralladdress %}
+                                    <div class="addressbox px-3 my-3 d-flex w-100 rounded">
+                                        <input type="radio" name="deliveryaddress" class="cursor-pointer" {% if deliveraddr.deliverid == alladdr.addid %}checked{% endif %} value="{{alladdr.addid}}" style="width: 2.3rem;" />
+                                        <div class="form-outline my-2 ml-3 py-2 px-3 w-100">
+                                            <label for="" class="form-label m-0 w-100 cursor-pointer">{{alladdr.addtitle}}</label>
+                                            <p>{{alladdr.adddescription|slice:50}}...</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                
+                            </div>
+                            <div class="form-choice mt-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-login w-100">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

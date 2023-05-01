@@ -1,0 +1,18 @@
+<!-- Internet Check Modal -->
+{% load static %}
+<div class="modal fade" id="internetModal" style="background-color: #80808080;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/logout/">
+                <div class="modal-body">
+                    <div class="p-5">
+                        <div class="d-flex justify-content-center mb-3">
+                            <img src="{% static 'assets/images/icons/no-internet.png' %}" style="width: 100px; height: 100px;">
+                        </div>
+                        <h5 class="m-0 text-center text-danger font-weight-bold">Please, Check Your <span class="text-primary">Internet</span> Connection.</h5>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

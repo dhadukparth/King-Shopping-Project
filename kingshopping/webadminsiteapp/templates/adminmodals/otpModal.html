@@ -1,0 +1,22 @@
+{% comment %} <div class="modal fade" id="otpModal" data-bs-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> {% endcomment %}
+    <div class="modal fade" id="otpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">OTP</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h6>Check {{login_user.email}} email address and enter OTP.</h6>
+                    <div class="form-outline text-center">
+                        <input type="text" name="userotp" class="userotp form-control" maxlength="6">
+                    </div>
+                    <span class="otperror text-danger"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="otpModalbtn btn btn-outline-primary" type="button">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

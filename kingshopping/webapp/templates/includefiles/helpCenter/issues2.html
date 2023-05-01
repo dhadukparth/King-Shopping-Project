@@ -1,0 +1,54 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} Shopping Cart {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+
+    <div class="container my-4">
+        <div class="p-4">
+            <div class="p-4 w-100 h-100 d-flex justify-content-center align-items-center shadow rounded">
+                <div class="w-100">
+                    <div class="border-bottom px-4">
+                        <h4>Customer Any <span class="text-primary">Issues?</span></h4>
+                    </div>
+                    <div class="p-4">
+                        <form action="{% url 'issues2' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="card rounded my-3 border-0">
+                                <div class="card-body p-5">
+            
+                                    <!-- User Account Information -->
+                                    <div class="pl-lg-4">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group focused">
+                                                    <label class="form-control-label" for="custissues">Your Issues</label>
+                                                    <input type="text" name="custissues" id="custissues" class="form-control text-capitalize form-control-alternative">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group focused">
+                                                    <label class="form-control-label" for="custdescription">Descriptions</label>
+                                                    <textarea id="custdescription" name="custdescription" class="form-control form-control-alternative text-capitalize"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-login btn-g w-100">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock bodycontent %}

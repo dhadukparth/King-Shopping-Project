@@ -1,0 +1,67 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} Settings {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+
+
+{% if login_user != None %}
+    <main class="main">
+        
+        <div class="container my-5">
+            <div class="row col-gap-2 row-gap-2 justify-content-around">
+                
+                <!-- Menubar -->
+                <div class="col-md-3 col-sm-12 py-4 shadow rounded">
+                    <a href="{% url 'Profile' %}" class="smenubox p-4 cursor-pointer d-flex align-items-center {% if request.resolver_match.url_name == "Profile" %}sactive{% endif %}">
+                        <h4 class="fas fa-user m-0"></h4>
+                        <div class="h6 m-0 ml-3">Profile</div>
+                    </a>
+                    <a href="{% url 'address' %}" class="smenubox p-4 cursor-pointer d-flex align-items-center {% if request.resolver_match.url_name == "address" %}sactive{% endif %}">
+                        <h4 class="fas fa-map-marker-alt m-0"></h4>
+                        <div class="h6 m-0 ml-3">Address</div>
+                    </a>
+                    <a href="{% url 'security' %}" class="smenubox p-4 cursor-pointer d-flex align-items-center {% if request.resolver_match.url_name == "security" %}sactive{% endif %}">
+                        <h4 class="fas fa-lock m-0"></h4>
+                        <div class="h6 m-0 ml-3">Security</div>
+                    </a>
+                    <a href="{% url 'lastLocation' %}" class="smenubox p-4 cursor-pointer d-flex align-items-center {% if request.resolver_match.url_name == "lastLocation" %}sactive{% endif %}">
+                        <h4 class="fas fa-map-marked-alt  m-0"></h4>
+                        <div class="h6 m-0 ml-3">Activity</div>
+                    </a>
+                    <a href="#logoutModal" class="smenubox p-4 cursor-pointer d-flex align-items-center" data-toggle="modal">
+                        <h4 class="fas fa-sign-out-alt m-0"></h4>
+                        <div class="h6 m-0 ml-3">Logout</div>
+                    </a>
+                </div>
+
+                <!-- Content -->
+                <div class="col-md-8 col-sm-12 shadow rounded ">
+                {% block settingmenucontent %}{% endblock settingmenucontent %}
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    {% else %}
+
+        <div class="container">
+
+            <div class="w-100 h-100 d-flex justify-content-center align-items-center p-5 m-5 shadow rounded">
+                <div class="text-center">
+                    <h4 class="mb-3">Please! Sign In In Your Account?</h4>
+                    <button type="button" class="btn btn-outline-primary-2" data-toggle="modal" data-target="#signin-modal">
+                        <span>LOG IN</span>
+                        <i class="icon-long-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    {% endif %}
+
+
+
+
+
+{% endblock bodycontent %}

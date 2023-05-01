@@ -1,0 +1,74 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} {{catname}} Product In King Shopping {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+    <main class="main">
+        
+        <div aria-label="breadcrumb" class="breadcrumb-nav mb-2"></div>
+
+        <div class="page-content">
+            <div class="container">
+                <div class="toolbox">
+                    <div class="toolbox-left">
+                        <a href="#" class="sidebar-toggler"><i class="icon-bars"></i>Filters</a>
+                    </div>
+
+                    <div class="toolbox-right">
+                        <div class="toolbox-info">
+                            Showing <span>{{getpro|length}} of {{getpro|length}}</span> Products
+                        </div>
+                    </div>
+                </div>
+
+                <div class="products">
+                    <div class="row">
+                        
+                        {% for allpro in getpro %}
+                            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                                <div class="product">
+                                    <figure class="product-media p-3 d-flex justify-content-center bg-white">
+                                        <a href="/product?proname={{allpro.proname}}&proid={{allpro.proid}}&procolor={{allpro.procolorname}}&proprice={{allpro.proprice}}"  style="width: 150px; height: 200px;">
+                                            <img src="{{allpro.proimage1.url}}" alt="Product image" class="product-image w-100 h-100 object-fit-scale">
+                                        </a>
+                                        <div class="product-action action-icon-top">
+                                            <div class="addtocartbtn btn-product btn-cart cursor-pointer" title="Add to cart" data-click="{{allpro.proid}}"></div>
+                                            <a href="/product?proname={{allpro.proname}}&proid={{allpro.proid}}&procolor={{allpro.procolorname}}&proprice={{allpro.proprice}}" class="btn-product btn-quickview" title="Quick view"></a>
+                                        </div>
+                                    </figure>
+
+                                    <div class="product-body">
+                                        <div class="product-cat d-flex justify-content-around mb-2">
+                                            <a href="/products/{{allpro.cid}}/">{{allpro.cid}}</a>
+                                            <a href="/products/{{allpro.cid}}/{{allpro.bid}}/">{{allpro.bid}}</a>
+                                        </div>
+                                        <h3 class="product-title">
+                                            <a href="/product?proname={{allpro.proname}}&proid={{allpro.proid}}&procolor={{allpro.procolorname}}&proprice={{allpro.proprice}}">{{allpro.proname|slice:80}}</a>
+                                        </h3>
+                                        <div class="product-price">
+                                            <i class="fas fa-rupee-sign mr-2"></i>{{allpro.proprice}}
+                                        </div>
+                                        {% if allpro.prostock == 0 %}
+                                            <div class="text-danger h6 ml-3">
+                                                Out of Stock
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% endfor %}
+
+
+                    </div>
+
+                </div>
+
+                <div class="sidebar-filter-overlay"></div>
+
+                {% include 'common/filtersidebar.html' %}
+
+
+            </div>
+        </div>
+    </main>
+{% endblock bodycontent %}

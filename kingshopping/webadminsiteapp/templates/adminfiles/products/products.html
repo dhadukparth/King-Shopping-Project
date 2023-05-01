@@ -1,0 +1,75 @@
+{% extends 'common/admincommon.html' %}
+{% block WebTitle %} Products {% endblock WebTitle %}
+{% block BodyContent %}
+
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Products</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Brand</th>
+                                <th>Proprice</th>
+                                <th>Stock</th>
+                                <th>Color</th>
+                                <th class="nosort th-last-10">Controls</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for allpro in allprodata %}
+                                <tr>                       
+                                    <td title="{{forloop.counter}}">{{forloop.counter}}</td>
+                                    <td title="{{allpro.proname}}">{{allpro.proname|slice:30}}...</td>
+                                    <td title="{{allpro.cid}}">{{allpro.cid}}</td>
+                                    <td title="{{allpro.bid}}">{{allpro.bid}}</td>
+                                    <td title="{{allpro.proprice}}">{{allpro.proprice}}</td>
+                                    <td>
+                                        {% if allpro.prostock == 0 %}
+                                            <span class="text-danger">Out Of Stock</span>
+                                        {% else %}
+                                            {{allpro.prostock}}</td>
+                                        {% endif %}
+                                    <td title="{{allpro.procolorname}}">{{allpro.procolorname}}</td>
+                                    <td>
+                                        <div class="tablesubmenu justify-content-around align-items-center d-flex flex-column flex-lg-row gap-2">
+                                            <a target='_blank' href="/adminsideproweb/products/edit/?proname={{allpro.proname}}&procat={{allpro.cid}}&probrand={{allpro.bid}}&procolor={{allpro.procolorname}}" type="button" class="ProductEditBtn modalbtn btn btn-sm btn-outline-primary" style="width: 50px; height: 30px;" title="View">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <button type="button" class="ProductRemoveBtn modalbtn btn btn-sm btn-outline-danger" style="width: 50px; height: 30px;" title="Remove" data-click="{{allpro.proid}}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock BodyContent %}
+
+
+{% block ModalContent %}
+
+    {% comment %} {% include 'adminmodals/productEditModal.html' %} {% endcomment %}
+    {% include 'adminmodals/deleteModal.html' %}
+
+{% endblock ModalContent %}

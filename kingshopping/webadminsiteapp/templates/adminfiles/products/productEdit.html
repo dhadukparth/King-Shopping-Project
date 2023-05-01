@@ -1,0 +1,507 @@
+{% extends 'common/admincommon.html' %}
+{% block WebTitle %} {{setdata.proname}} {% endblock WebTitle %}
+{% block BodyContent %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        {% for prodata in setdata.productdata %}
+
+            {% comment %} Product Short Information {% endcomment %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Short Information</h6>
+                    {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' %}
+                        <div class="productshorteditbtn btn btn-outline-success" title="Edit">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Edit</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="card-body" id="productshortdetails">
+                    <form action="{% url 'ProsuctShortDataUpdate' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="uproid" value="{{prodata.proid}}">
+                        <div class="row">
+                            <div class="col-lg-6 my-lg-2 my-2">
+                                <div class="form-group m-0">
+                                    <select class="form-select" name="uprocategory" title="Select Category" id="eproducteditcategorys" required disabled="false">
+                                        {% for setcat in setdata.allcategorys %}
+                                            <option value="{{setcat.catname}}" {% if setcat.cid == prodata.cid_id %}selected{% endif %}>{{setcat.catname}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 my-lg-2 my-2">
+                                <div class="form-group m-0">
+                                    <select class="form-select" name="uprobrands" title="Select Brand" id="eproducteditbrands" required disabled="false">
+                                        {% for setbrand in setdata.allbrands %}
+                                            <option {% if setbrand.bid == prodata.bid_id %}selected{% endif %}>{{setbrand.bname}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 my-lg-2 my-3">
+                                <div class="form-outline">
+                                    <input type="text" name="uproname" id="eproductname" class="form-control" title="Product Name" value="{{prodata.proname}}" required disabled="false">
+                                    <label for="eproductname" class="form-label">Product Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 my-lg-2 my-2">
+                                <div class="form-outline">
+                                    <input type="number" min="0" name="uproprice" id="eproductprice" class="form-control" title="Product Price" value="{{prodata.proprice}}" required disabled="false">
+                                    <label for="eproductprice" class="form-label">Product Price</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 my-lg-2 my-2">
+                                <div class="form-outline">
+                                    <input type="number" min="0" name="uprostock" id="eproductstock" class="form-control" title="Product Stock" value="{{prodata.prostock}}" required disabled="false">
+                                    <label for="eproductstock" class="form-label">Product Stock</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 my-lg-2 my-2">
+                                <div class="form-outline">
+                                    <input type="text" name="uprocolorname" id="eproductcolorname" class="form-control" title="Product Color Name" value="{{prodata.procolorname}}" required disabled="false">
+                                    <label for="eproductcolorname" class="form-label">Product Color Name</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 my-lg-2 my-2">
+                                <div class="form-outline">
+                                    <input type="color" name="uprocolor" id="eproductcolor" class="form-control" title="Product Color" value="{{prodata.procolor}}" required disabled="false">
+                                    <label for="eproductcolor" class="form-label">Product Color</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 my-lg-2 my-2">
+                                <div class="form-group m-0">
+                                    <select class="form-control" name="clothe_gender" id="watchtype" title="Clothe Gender" required disabled="false">
+                                        <option {% if prodata.clothes_gender == "No" %}selected{% endif %} value="No">Select Gender</option>
+                                        <option {% if prodata.clothes_gender == "boys" %}selected{% endif %} value="boys">Boys</option>
+                                        <option {% if prodata.clothes_gender == "childern" %}selected{% endif %} value="childern">Childern</option>
+                                        <option {% if prodata.clothes_gender == "girls" %}selected{% endif %} value="girls">Girls</option>
+                                        <option {% if prodata.clothes_gender == "man" %}selected{% endif %} value="man">Man</option>
+                                        <option {% if prodata.clothes_gender == "woman" %}selected{% endif %} value="woman">Woman</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 my-lg-2 my-2">
+                                <div class="form-outline">
+                                    <input type="text" name="clothes_size" id="clothes_size" class="form-control" title="Clothes Size" value="{{prodata.clothes_size}}" required disabled="false">
+                                    <label for="clothes_size" class="form-label">Clothes Size</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 my-lg-2 my-2">
+                                <div class="form-group m-0">
+                                    <select class="form-control" name="watch_type" id="watchtype" title="Watch Type" required disabled="false">
+                                        <option {% if prodata.watch_type == "No" %}selected{% endif %} value="No">Select Watch Type</option>
+                                        <option {% if prodata.watch_type == "couple" %}selected{% endif %} value="couple">Couple</option>
+                                        <option {% if prodata.watch_type == "boys" %}selected{% endif %} value="boys">Boys</option>
+                                        <option {% if prodata.watch_type == "girls" %}selected{% endif %} value="girls">Girls</option>
+                                        <option {% if prodata.watch_type == "man" %}selected{% endif %} value="man">Man</option>
+                                        <option {% if prodata.watch_type == "woman" %}selected{% endif %} value="woman">Woman</option>
+                                        <option {% if prodata.watch_type == "boysgirls" %}selected{% endif %} value="boysgirls">Boys & Girls</option>
+                                        <option {% if prodata.watch_type == "menwomen" %}selected{% endif %} value="menwomen">Men & Women</option>
+                                    </select>
+                                </div>
+                            </div>
+                    
+                            <div class="col-lg-2 my-lg-2 my-2">
+                                <div class="form-outline">
+                                    <input type="text" name="ram" id="ram" class="form-control" title="RAM" value="{{prodata.ram}}" required disabled="false">
+                                    <label for="ram" class="form-label">RAM</label>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 my-lg-2 my-2">
+                                <div class="form-outline">
+                                    <input type="text" name="rom" id="rom" class="form-control" title="ROM" value="{{prodata.rom}}" required disabled="false">
+                                    <label for="rom" class="form-label">ROM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 my-lg-2 my-2">
+                                <label for="description" class="form-label">Product Description</label>
+                                <textarea name="uprodescription" id="eproductdescription" rows="10" class="form-control myckeditor" title="Product Description" required>{{prodata.prodescription}}</textarea>
+                            </div>
+                        </div>
+                        {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' %}
+                            <div class="shortdetailsbuttons row d-none">
+                                <div class="col-lg-6 my-2">
+                                    <a href="{% url 'Products' %}" class="btn btn-outline-secondary w-100">Cancel</a>
+                                </div>
+                                <div class="col-lg-6 my-2">
+                                    <button type="submit" class="btn btn-outline-primary w-100">Save</button>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+
+            {% comment %} Product Images Information {% endcomment %}
+            <div class="card shadow mb-4 my-2">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Product Images</h6>
+                    {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' %}
+                        <div class="productimageseditbtn btn btn-outline-success" title="Edit">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Edit</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="card-body" id="productimagesdetails">
+                    <div class="mt-4">
+                        <form action="{% url 'ProsuctImageDataUpdate' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <figure class="d-flex justify-content-center">
+                                        <div class="userimage rounded p-3 shadow cursor-pointer position-relative" style="width: 15rem; height: 15rem;" title="Product Image1">
+                                            <img src="{{prodata.proimage1.url}}" alt="Product Image" class="chooseproimage1 w-100 h-100 object-fit-scale rounded"  onclick="targeimage('.chooseproimageinput1')">
+                                            <input type="file" name="uproimage1" class="chooseproimageinput1 form-control d-none" accept=".png,.jpg,.jpeg" disabled="false">
+                                        </div>
+                                    </figure>
+                                </div>
+                                <input type="hidden" name="uproid" value="{{prodata.proid}}">
+                                <div class="col">
+                                    <figure class="d-flex justify-content-center">
+                                        <div class="userimage rounded p-3 shadow cursor-pointer position-relative" style="width: 15rem; height: 15rem;" title="Product Image2">
+                                            <img src="{{prodata.proimage2.url}}" alt="Product Image" class="chooseproimage2 w-100 h-100 object-fit-scale rounded" onclick="targeimage('.chooseproimageinput2')">
+                                            <input type="file" name="uproimage2" class="chooseproimageinput2 form-control d-none" accept=".png,.jpg,.jpeg" value="{{prodata.proimage2}}" disabled="false">
+                                        </div>
+                                    </figure>
+                                </div>
+                                <div class="col">
+                                    <figure class="d-flex justify-content-center">
+                                        <div class="userimage rounded p-3 shadow cursor-pointer position-relative" style="width: 15rem; height: 15rem;" title="Product Image3">
+                                            <img src="{{prodata.proimage3.url}}" alt="Product Image" class="chooseproimage3 w-100 h-100 object-fit-scale rounded" onclick="targeimage('.chooseproimageinput3')">
+                                            <input type="file" name="uproimage3" class="chooseproimageinput3 form-control d-none" accept=".png,.jpg,.jpeg" value="{{prodata.proimage3}}" disabled="false">
+                                        </div>
+                                    </figure>
+                                </div>
+                                <div class="col">
+                                    <figure class="d-flex justify-content-center">
+                                        <div class="userimage rounded p-3 shadow cursor-pointer position-relative" style="width: 15rem; height: 15rem;" title="Product Image4">
+                                            <img src="{{prodata.proimage4.url}}" alt="Product Image" class="chooseproimage4 w-100 h-100 object-fit-scale rounded" onclick="targeimage('.chooseproimageinput4')">
+                                            <input type="file" name="uproimage4" class="chooseproimageinput4 form-control d-none" accept=".png,.jpg,.jpeg" value="{{prodata.proimage4}}" disabled="false">
+                                        </div>
+                                    </figure>
+                                </div>
+                                <div class="col">
+                                    <figure class="d-flex justify-content-center">
+                                        <div class="userimage rounded p-3 shadow cursor-pointer position-relative" style="width: 15rem; height: 15rem;" title="Product Image5">
+                                            <img src="{{prodata.proimage5.url}}" alt="Product Image" class="chooseproimage5 w-100 h-100 object-fit-scale rounded" onclick="targeimage('.chooseproimageinput5')">
+                                            <input type="file" name="uproimage5" class="chooseproimageinput5 form-control d-none" accept=".png,.jpg,.jpeg" value="{{prodata.proimage5}}" disabled="false">
+                                        </div>
+                                    </figure>
+                                </div>
+                                {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' %}
+                                    <div class="imagedetailsbuttons row d-none">
+                                        <div class="col-lg-6 my-2">
+                                            <a href="{% url 'Products' %}" class="btn btn-outline-secondary w-100">Cancel</a>
+                                        </div>
+                                        <div class="col-lg-6 my-2">
+                                            <button type="submit" class="btn btn-outline-primary w-100">Save</button>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' %}
+
+                {% comment %} Product General Information {% endcomment %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold text-primary">Product General Information</h6>
+                        <div class="productgeneraleditbtn btn btn-outline-success" title="Edit">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Edit</span>
+                        </div>
+                    </div>
+
+
+                    <div class="card-body" id="productgeneraldetails">
+                        <form action="{% url 'ProsuctGeneralDataUpdate' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="uproid" value="{{prodata.proid}}">
+                            <input type="hidden" name="category" value="{{setdata.gprocategory|lower}}">
+                            {% for gendata in othersdata.gendata %}
+                                <div class="row">
+                                    <div class="col-12 my-lg-2 my-2">
+                                        <textarea name="update_general_details" id="update_general_details" rows="10" class="form-control myckeditor" title="Product General Details">{{gendata.general_details}}</textarea>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="productgeneralbuttons row d-none">
+                                <div class="col-lg-6 my-2">
+                                    <a href="{% url 'Products' %}" class="btn btn-outline-secondary w-100">Cancel</a>
+                                </div>
+                                <div class="col-lg-6 my-2">
+                                    <button type="submit" class="btn btn-outline-primary w-100">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                {% comment %} Product Display Information {% endcomment %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold text-primary">Display Information</h6>
+                        <div class="productdisplayeditbtn btn btn-outline-success" title="Edit">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Edit</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body" id="productdisplaydetails">
+                        <form action="{% url 'ProsuctDisplayDataUpdate' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="uproid" value="{{prodata.proid}}">
+
+                            <div class="row">
+                                <div class="col-lg-4 my-lg-2 my-2">
+                                    <label for="displayshow">Display Panel Show/Hide</label>
+                                </div>
+                                <div class="col-lg-8 my-lg-2 my-2">
+                                    <div class="form-group">
+                                        <select class="form-control newdisplayshow" name="displayshow" id="displayshow" title="Display Show" required disabled="false">
+                                            <option {% if othersdata.disdata.show_display == "show" %}selected{% endif %} value="show">Show</option>
+                                            <option {% if othersdata.disdata.show_display == "hide" %}selected{% endif %} value="hide">Hide</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row newdisplayshowTextarea {% if othersdata.disdata.show_display == "hide" %}d-none{% endif %}">
+                                <div class="col-12 my-lg-2 my-2">
+                                    <textarea name="update_display_details" id="display_details" rows="10" class="form-control myckeditor" title="Product Description">{{othersdata.disdata.display_details}}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="productdisplaybuttons row d-none">
+                                <div class="col-lg-6 my-2">
+                                    <a href="{% url 'Products' %}" class="btn btn-outline-secondary w-100">Cancel</a>
+                                </div>
+                                <div class="col-lg-6 my-2">
+                                    <button type="submit" class="btn btn-outline-primary w-100">Save</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+                {% comment %} Product Connectivity Information {% endcomment %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold text-primary">Connectivity Information</h6>
+                        <div class="productconnectivityeditbtn btn btn-outline-success" title="Edit">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Edit</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body" id="productconnectivitydetails">
+                        <form action="{% url 'ProsuctConnectivityDataUpdate' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="uproid" value="{{prodata.proid}}">
+
+                            <div class="row">
+                                <div class="col-lg-4 my-lg-2 my-2">
+                                    <label>Connectivity Panel Show/Hide</label>
+                                </div>
+                                <div class="col-lg-10 my-lg-2 my-2">
+                                    <div class="form-group">
+                                        <select class="form-control newconnectivityshow" name="connectivityshow" id="connectivityshow" title="Connectivity Show" required disabled="false">
+                                            <option {% if othersdata.conndata.show_connectivity == "show" %}selected{% endif %} value="show">Show</option>
+                                            <option {% if othersdata.conndata.show_connectivity == "hide" %}selected{% endif %} value="hide">Hide</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row newconnectivityshowTextarea {% if othersdata.conndata.show_connectivity == "hide" %}d-none{% endif %}">
+                                <div class="col-12 my-lg-2 my-2">
+                                    <textarea name="update_connectivity_details" id="conndetails" rows="10" class="form-control myckeditor" title="Product Connectivity Deatils">{{othersdata.conndata.connectivity_details}}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="productconnectivitybuttons row d-none">
+                                <div class="col-lg-6 my-2">
+                                    <a href="{% url 'Products' %}" class="btn btn-outline-secondary w-100">Cancel</a>
+                                </div>
+                                <div class="col-lg-6 my-2">
+                                    <button type="submit" class="btn btn-outline-primary w-100">Save</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+                {% comment %} Product OS & Processer Information {% endcomment %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold text-primary">OS&Processer Information</h6>
+                        <div class="productosprocessereditbtn btn btn-outline-success" title="Edit">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Edit</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body" id="productosprocesserdetails">
+                        <form action="{% url 'ProsuctOSProcessorDataUpdate' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="uproid" value="{{prodata.proid}}">
+
+                            <div class="row">
+                                <div class="col-lg-4 my-lg-2 my-2">
+                                    <label for="osprocessorshow">OS & Processer Panel Show/Hide</label>
+                                </div>
+                                <div class="col-lg-8 my-lg-2 my-2">
+                                    <div class="form-group">
+                                        <select class="form-control newosprocessorshow" name="osprocessorshow" id="osprocessorshow" title="OS & Processer Show" required disabled="false">
+                                            <option {% if othersdata.osprodata.show_osprocesser == "show" %}selected{% endif %} value="show">Show</option>
+                                            <option {% if othersdata.osprodata.show_osprocesser == "hide" %}selected{% endif %} value="hide">Hide</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row newosprocessorshowTextarea {% if othersdata.osprodata.show_osprocesser == "hide" %}d-none{% endif %}">
+                                <div class="col-12 my-lg-2 my-2">
+                                    <textarea name="update_os_processer_details" id="os_processer_details" rows="10" class="form-control myckeditor" title="Product OS & Processer Description">{{othersdata.osprodata.osprocesser_details}}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="productosprocesserbuttons row d-none">
+                                <div class="col-lg-6 my-2">
+                                    <a href="{% url 'Products' %}" class="btn btn-outline-secondary w-100">Cancel</a>
+                                </div>
+                                <div class="col-lg-6 my-2">
+                                    <button type="submit" class="btn btn-outline-primary w-100">Save</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+                {% comment %} Product Other Information {% endcomment %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold text-primary">Other Information</h6>
+                        <div class="productclothseditbtn btn btn-outline-success" title="Edit">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Edit</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body" id="productclothsdetails">
+                        <form action="{% url 'ProsuctOtherDataUpdate' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="uproid" value="{{prodata.proid}}">
+
+                            <div class="row">
+                                <div class="col-lg-4 my-lg-2 my-2">
+                                    <label>Other Panel Show/Hide</label>
+                                </div>
+                                <div class="col-lg-8 my-lg-2 my-2">
+                                    <div class="form-group">
+                                        <select class="form-control newclothesshow" name="clothesshow" id="clothesshow" title="Clothes Show" required disabled="false">
+                                            <option {% if othersdata.otherdata.show_other == "show" %}selected{% endif %} value="show">Show</option>
+                                            <option {% if othersdata.otherdata.show_other == "hide" %}selected{% endif %} value="hide">Hide</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row newclotheshowTextarea {% if othersdata.otherdata.show_other == "hide" %}d-none{% endif %}">
+                                <div class="col-12 my-lg-2 my-2">
+                                    <textarea name="update_clothes_details" id="clothes_details" rows="10" class="form-control myckeditor" title="Product Clothes Deatils"></textarea>
+                                </div>
+                            </div>
+                            <div class="productclothsbuttons row d-none">
+                                <div class="col-lg-6 my-2">
+                                    <a href="{% url 'Products' %}" class="btn btn-outline-secondary w-100">Cancel</a>
+                                </div>
+                                <div class="col-lg-6 my-2">
+                                    <button type="submit" class="btn btn-outline-primary w-100">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>  
+                </div>
+
+
+                {% comment %} Product Dimensions And Warranty Information {% endcomment %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold text-primary">Product Dimensions And Warranty Information</h6>
+                        <div class="productdimwarrantyeditbtn btn btn-outline-success" title="Edit">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Edit</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body" id="productdimwarrantydetails">
+                        <form action="{% url 'ProsuctDimensionsWarrantyDataUpdate' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="uproid" value="{{prodata.proid}}">
+
+                            <div class="row">
+                                <div class="col-lg-4 my-lg-2 my-2">
+                                    <label>Dimensions/Warranty Panel Show/Hide</label>
+                                </div>
+                                <div class="col-lg-8 my-lg-2 my-2">
+                                    <div class="form-group">
+                                        <select class="form-control newdimwarrshow" name="dimwarrshow" id="dimwarrshow" title="Dimensions/Warranty Show" required disabled="false">
+                                            <option {% if othersdata.dimwarrdata.show_dimwarr == "show" %}selected{% endif %} value="show">Show</option>
+                                            <option {% if othersdata.dimwarrdata.show_dimwarr == "hide" %}selected{% endif %} value="hide">Hide</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row newdimwarrshowTextarea {% if othersdata.dimwarrdata.show_dimwarr == "hide" %}d-none{% endif %}">
+                                <div class="col-12 my-lg-2 my-2">
+                                    <textarea name="update_dimension_warranty" id="update_dimension_warranty_deatils" rows="10" class="form-control myckeditor" title="Product Dimensions & Warranty Description">{{othersdata.dimwarrdata.dimension_warranty_details}}</textarea>
+                                </div>
+                            </div>
+                            <div class="productdimwarrantybuttons row d-none">
+                                <div class="col-lg-6 my-2">
+                                    <a href="{% url 'Products' %}" class="btn btn-outline-secondary w-100">Cancel</a>                                
+                                </div>
+                                <div class="col-lg-6 my-2">
+                                    <button type="submit" class="btn btn-outline-primary w-100">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+
+{% endblock BodyContent %}

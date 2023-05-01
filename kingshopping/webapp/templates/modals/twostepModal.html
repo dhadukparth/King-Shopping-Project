@@ -1,0 +1,33 @@
+{% comment %} Two Step Authontication On Modal {% endcomment %}
+<div class="modal fade" id="twostepModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form>
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+                    <div class="p-5">
+                        <div class="pt-2">
+                            <h6>Enter This Email Address {{loginuseremail}} </h6>
+                        </div>
+                        <div class="form-group m-0">
+                            <input type="email" class="form-control" id="userenteremail" name="userenteremail" required autofocus>
+                            <span class="twoerror text-danger font-weight-bold"></span>
+                        </div>
+                        <div class="form-choice mt-2">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button type="button" class="twostepbtncancel btn btn-login w-100" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-login w-100" id="twostepbtnsendotp">Send OTP</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

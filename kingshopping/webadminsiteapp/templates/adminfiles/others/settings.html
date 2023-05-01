@@ -1,0 +1,111 @@
+{% extends 'common/admincommon.html' %}
+{% block WebTitle %} Settings {% endblock WebTitle %}
+{% load static %}
+{% block BodyContent %}
+
+<div class="container-fluid d-flex">
+                    
+    <!-- Setting Menu -->
+    <div class="settingmenu row">
+        <div class="col">
+
+            <!-- Main Box  -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Settings</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="settingsrowcolbox row row-cols-1">
+
+                        <!-- General Box -->
+                        <a href="{% url 'generalSetting' %}"  class="col my-2 p-3 cursor-pointer text-decoration-none rounded {% if request.resolver_match.url_name == "generalSetting" %}bg-cu1{% endif %}">
+                            <div class="settingmenubox d-flex align-items-center">
+                                <div class="icon p-2 rounded d-flex justify-content-center align-items-center fs-4 text-secondary" style="width: 50px; height: 50px; background-color: #f3f6f8;">
+                                    <i class="fas fa-cog {% if request.resolver_match.url_name == "generalSetting" %}text-success{% endif %}"></i>
+                                </div>
+                                <div class="settingmenucontent ms-3">
+                                    <div class="text-decoration-none">
+                                        <div class="stitle text-primary">
+                                            <b>General</b>
+                                        </div>
+                                    </div>
+                                    <div class="sdesc text-secondary">View and update your details</div>
+                                </div>
+                            </div>
+                        </a>
+
+
+                        {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' %}
+                            
+                            <!-- Restore Box -->
+                            <a href="{% url 'restoreSetting' %}"  class="col my-2 p-3 cursor-pointer text-decoration-none rounded {% if request.resolver_match.url_name == "restoreSetting" %}bg-cu1{% endif %}">
+                                <div class="settingmenubox d-flex align-items-center">
+                                    <div class="icon p-2 rounded d-flex justify-content-center align-items-center fs-4 text-secondary" style="width: 50px; height: 50px; background-color: #f3f6f8;">
+                                        <i class="fas fa-trash {% if request.resolver_match.url_name == "restoreSetting" %}text-success{% endif %}"></i>
+                                    </div>
+                                    <div class="settingmenucontent ms-3">
+                                        <div class="text-decoration-none">
+                                            <div class="title text-primary">
+                                                <b>Bin</b>
+                                            </div>
+                                        </div>
+                                        <div class="text-secondary">Remove records is store this menu.</div>
+                                    </div>
+                                </div>
+                            </a>
+
+                        {% endif %}
+                        
+                        <!-- Security Box -->
+                        <a href="{% url 'securitySetting' %}"  class="col my-2 p-3 cursor-pointer text-decoration-none rounded {% if request.resolver_match.url_name == "securitySetting" %}bg-cu1{% endif %}">
+                            <div class="settingmenubox d-flex align-items-center">
+                                <div class="icon p-2 rounded d-flex justify-content-center align-items-center fs-4 text-secondary" style="width: 50px; height: 50px; background-color: #f3f6f8;">
+                                    <i class="fas fa-lock {% if request.resolver_match.url_name == "securitySetting" %}text-success{% endif %}"></i>
+                                </div>
+                                <div class="settingmenucontent ms-3">
+                                    <div class="text-decoration-none">
+                                        <div class="title text-primary">
+                                            <b>Security</b>
+                                        </div>
+                                    </div>
+                                    <div class="text-secondary">Set the security and change.</div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Logout Box -->
+                        <div class="col my-2 p-3 cursor-pointer">
+                            <div class="settingmenubox d-flex  align-items-center">
+                                <div class="icon p-2 rounded d-flex justify-content-center align-items-center fs-4" style="width: 50px; height: 50px; background-color: #f3f6f8;">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </div>
+                                <div class="settingmenucontent ms-3">
+                                    <div class="text-decoration-none" data-toggle="modal" data-target="#logoutModal">
+                                        <div class="title text-primary">
+                                            <b>Logout</b>
+                                        </div>
+                                    </div>
+                                    <div>Your are sign out your account</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Setting Box -->
+    <div class="settingbox row ms-4 w-100">
+        <div class="col">
+
+            {% block SettingBoxContent %}{% endblock SettingBoxContent %}
+            
+        </div>
+    </div>
+
+</div>
+
+{% endblock BodyContent %}

@@ -1,0 +1,250 @@
+{% load static %}
+
+<!-- Menu Bar Slider Start -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'dashboard' %}">
+        <div class="sidebar-brand-icon">
+            <img src="{% static 'assets/img/icons/favicon-32x32.png' %}"></img>
+        </div>
+        <div class="sidebar-brand-text ml-3">King Shopping</div>
+    </a>
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <div class="d-none" id="EmployeeDeparement">{{employee_profile.edeparements|lower}}</div>
+    
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item {% if request.resolver_match.url_name == "dashboard" %}active{% endif %}">
+        <a class="nav-link" href="{% url 'dashboard' %}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    {% comment %} <span class="text-white">{{employee_profile.edeparements|lower}}</span> {% endcomment %}
+    
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Products
+    </div>
+
+    {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' %}
+    
+        <!-- Nav Item - Products Collapse Menu -->
+        <li class="nav-item {% if request.resolver_match.url_name == 'Products' or request.resolver_match.url_name == 'newProduct' or request.resolver_match.url_name == 'newProductDetails' or request.resolver_match.url_name == 'ProductEdit' %}active{% endif %}">
+
+            <div class="nav-link collapsed cursor-pointer" data-toggle="collapse" data-target="#collapseProduct" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-dice-d6"></i>
+                <span>Products</span>
+            </div>
+            <div id="collapseProduct" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Products:</h6>
+                    <a href="{% url 'Products' %}" class="collapse-item {% if request.resolver_match.url_name == "allProducts"  or request.resolver_match.url_name == 'ProductEdit' %}active{% endif %}">Products</a>
+                    <a href="{% url 'newProduct' %}" class="collapse-item {% if request.resolver_match.url_name == "newProduct" or request.resolver_match.url_name == 'newProductDetails' %}active{% endif %}">New Product</a>
+                </div>
+            </div>
+        </li>
+
+    {% endif %}
+
+    <!-- Nav Item - Replace Products Collapse Menu -->
+    <li class="nav-item {% if request.resolver_match.url_name == "replaceProducts" or request.resolver_match.url_name == "returnProducts" %}active{% endif %}">
+        <div class="nav-link collapsed cursor-pointer" data-toggle="collapse" data-target="#collapseReplaceProduct" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-undo-alt"></i>
+            <span>Replace Products</span>
+        </div>
+        <div id="collapseReplaceProduct" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Replace Products:</h6>
+                <a href="{% url 'replaceProducts' %}" class="collapse-item {% if request.resolver_match.url_name == "replaceProducts" %}active{% endif %}">Replace Product</a>
+
+                {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' or employee_profile.edeparements|lower == 'employee' %}
+                    <a href="{% url 'returnProducts' %}" class="collapse-item {% if request.resolver_match.url_name == "returnProducts" %}active{% endif %}">Return Product</a>
+                {% endif %}
+            </div>
+        </div>
+    </li>
+
+    {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' %}
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Categorys & Brands
+        </div>
+
+        <!-- Nav Item - Categorys Collapse Menu -->
+        <li class="nav-item {% if request.resolver_match.url_name == "Categorys" %}active{% endif %}">
+            <div class="nav-link collapsed cursor-pointer" data-toggle="collapse" data-target="#collapseCategorys" aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-list-ul"></i>
+                <span>Categorys</span>
+            </div>
+            <div id="collapseCategorys" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Categorys:</h6>
+                    <a href="{% url 'Categorys' %}" class="collapse-item {% if request.resolver_match.url_name == "Categorys" %}active{% endif %}">Categorys</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Brans Collapse Menu -->
+        <li class="nav-item {% if request.resolver_match.url_name == "Brands" %}active{% endif %}">
+            <div class="nav-link collapsed cursor-pointer" data-toggle="collapse" data-target="#collapseBrands" aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-shapes"></i>
+                <span>Brands</span>
+            </div>
+            <div id="collapseBrands" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Brands:</h6>
+                    <a href="{% url 'Brands' %}" class="collapse-item {% if request.resolver_match.url_name == "Brands" %}active{% endif %}">Brands</a>
+                </div>
+            </div>
+        </li>
+
+    {% endif %}
+
+    <!-- Divider -->
+    
+    {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' %}
+        <hr class="sidebar-divider">
+        
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Users & Employees
+        </div>
+
+        <!-- Nav Item - Users Collapse Menu -->
+        <li class="nav-item {% if request.resolver_match.url_name == "users" %}active{% endif %}">
+            <div class="nav-link collapsed cursor-pointer" data-toggle="collapse" data-target="#collapseuser"
+                aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Users</span>
+            </div>
+            <div id="collapseuser" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Users:</h6>
+                    <a href="{% url 'users' %}" class="collapse-item {% if request.resolver_match.url_name == "users" %}active{% endif %}">Users</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Employess Collapse Menu -->
+        <li class="nav-item {% if request.resolver_match.url_name == "employees" or request.resolver_match.url_name == "newEmployee" %}active{% endif %}">
+            <div class="nav-link collapsed cursor-pointer" data-toggle="collapse" data-target="#collapseEmployes"
+                aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-user-tie"></i>
+                <span>Employees</span>
+            </div>
+            <div id="collapseEmployes" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Users:</h6>
+                    <a href="{% url 'employees' %}" class="collapse-item {% if request.resolver_match.url_name == "employees" %}active{% endif %}">Employees</a>
+                    <a href="{% url 'newEmployee' %}" class="collapse-item {% if request.resolver_match.url_name == "newEmployee" %}active{% endif %}">New Employee</a>
+                </div>
+            </div>
+        </li>
+
+    {% endif %}
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Orders
+    </div>
+
+    <!-- Nav Item - Employess Collapse Menu -->
+    <li class="nav-item {% if request.resolver_match.url_name == "Orders" %}active{% endif %}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+            aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-cart-arrow-down"></i>
+            <span>Orders</span>
+        </a>
+        <div id="collapseOrders" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Orders:</h6>
+                <a href="{% url 'Orders' %}" class="collapse-item {% if request.resolver_match.url_name == "Orders" %}active{% endif %}">Orders</a>
+            </div>
+        </div>
+    </li>
+
+    {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' or employee_profile.edeparements|lower == 'employee' %}
+
+        <!-- Nav Item - Cancel Order -->
+        <li class="nav-item {% if request.resolver_match.url_name == "CancelOrders" %}active{% endif %}">
+            <a class="nav-link" href="{% url 'CancelOrders' %}">
+                <i class="fas fa-fw fa-times-circle"></i>
+                <span>Cancel Orders</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        
+    {% endif %}
+        
+    <hr class="sidebar-divider">
+    {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' or employee_profile.edeparements|lower == 'employee' %}
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Messages
+        </div>
+
+
+        <!-- Nav Item - Notifications -->
+        <li class="nav-item {% if request.resolver_match.url_name == "Notifications" %}active{% endif %}">
+            <a class="nav-link" href="{% url 'Notifications' %}">
+                <i class="fas fa-fw fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+        </li>
+
+        <hr class="sidebar-divider">
+    {% endif %}
+
+    <!-- Divider -->
+    
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Others
+    </div>
+
+    {% if employee_profile.edeparements|lower == 'administrator' or employee_profile.edeparements|lower == 'hr' or employee_profile.edeparements|lower == 'manager' %}
+
+        <!-- Nav Item - Banner -->
+        <li class="nav-item {% if request.resolver_match.url_name == "Banners" %}active{% endif %}">
+            <a class="nav-link" href="{% url 'Banners' %}">
+                <i class="fas fa-image"></i>
+                <span>Banners</span>
+            </a>
+        </li>
+
+    {% endif %}
+    
+
+    <!-- Nav Item - Settings -->
+    <li class="nav-item {% if request.resolver_match.url_name == "settings" or request.resolver_match.url_name == "generalSetting" or request.resolver_match.url_name == "restoreSetting" or request.resolver_match.url_name == "securitySetting" %}active{% endif %}">
+        <a class="nav-link" href="{% url 'settings' %}">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>
+<!-- End of Menu Bar Sidebar -->

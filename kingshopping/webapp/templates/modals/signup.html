@@ -1,0 +1,77 @@
+<!-- Register Modal -->
+<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
+
+                <div class="form-box">
+
+
+                    <!-- Register Panel -->
+                    <div class="text-center">
+                        <h3>Sign Up</h3>
+                    </div>
+                    <div class="tab-pane fade show active" id="register" role="tabpanel" aria-labelledby="register-tab">
+                        <form action="/signup/" method="POST">
+                            {% csrf_token %}
+                            <div class="">
+                                <div class="form-group">
+                                    <label for="register-username">Username <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="register-username" name="register-username" required autofocus>
+                                </div><!-- End .form-group -->
+
+                                <div class="form-group">
+                                    <label for="register-email">Email Address <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="register-email" name="register-email"
+                                        required>
+                                </div><!-- End .form-group -->
+
+                                <div class="form-group position-relative">
+                                    <label for="register-password">Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control passwordvalidation" id="register-password" name="register-password" required>
+                                    <div class="setconditionbox d-none position-absolute bg-white shadow-lg py-3 px-5 top-0 rounded w-100" style="right: -45rem;">
+                                        <div class="passlength d-flex align-items-center">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <p class="pl-3">Langth Is 8 Characture</p>
+                                        </div>
+                                        <div class="passupper d-flex align-items-center">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <p class="pl-3">1 Characture Is Upper Case</p>
+                                        </div>
+                                        <div class="passlower d-flex align-items-center">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <p class="pl-3">1 Characture Is Lower Case</p>
+                                        </div>
+                                        <div class="passnumber d-flex align-items-center">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <p class="pl-3">1 Characture Is Any Number</p>
+                                        </div>
+                                        <div class="passymbol d-flex align-items-center">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <p class="pl-3">1 Characture Is Any Symbol</p>
+                                        </div>
+                                    </div>
+                                </div><!-- End .form-group -->
+
+                                <div class="form-footer border-0 p-0 m-0 mt-3">
+                                    <button type="submit" class="btn btn-outline-primary-2 w-100">
+                                        <span>SIGN UP</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </button>
+                                    <div class="mt-2 text-center w-100">
+                                        <div class="text-primary cursor-pointer" data-dismiss="modal" data-toggle="modal" data-target="#signin-modal">Allready Account</div>
+                                    </div>
+                                </div><!-- End .form-footer -->
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

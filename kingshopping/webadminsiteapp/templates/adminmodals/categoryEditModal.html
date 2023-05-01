@@ -1,0 +1,44 @@
+<div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Category</h5>
+            </div>
+            <form  method="POST" action="/adminsideproweb/categorys/edit/" enctype="multipart/form-data" id="ucategory">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-6">
+                                <figure class="d-flex justify-content-center">
+                                    <div class="userimage rounded p-3 shadow cursor-pointer" style="width: 15rem; height: 15rem;">
+                                        <img class="chooseimagebtn w-100 h-100 rounded object-fit-scale" id="uCategoryImage">
+                                        <input type="file" name="ncatimage" id="chooseimageinput" class="form-control d-none" accept=".png,.jpg,.jpeg">
+                                    </div>
+                                </figure>
+                            </div>
+
+                            <div class="col-6">
+
+                                <div class="form-outline my-4">
+                                    <input type="text" name="ncatname" id="ucategoryName" class="form-control" required>
+                                    <label class="form-label" for="categoryName">Name</label>
+                                </div>
+                                <div class="form-outline my-4">
+                                    <textarea name="ncatdescription" id="ucategoryDescription" rows="5" class="form-control"></textarea>
+                                    <label class="form-label" for="categoryDescription">Description</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btnmodalclose btn btn-outline-warning" data-dismiss="#editCategoryModal">Close</button>
+                    <button type="submit" class="btn btn-outline-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

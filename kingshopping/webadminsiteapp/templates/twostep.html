@@ -1,0 +1,52 @@
+{% extends 'admincommonout.html' %}
+{% block WebTitle %} Sign In {% endblock WebTitle %}
+{% load static %}
+{% block BodyOutContent %}
+
+
+<div class="container vh-100 d-flex justify-content-center align-items-center p-0">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center w-50">
+
+        <div class="col-12">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row" style="height: 60vh;">
+                        {% comment %} <div class="col-lg-6">
+                            <img src="{% static 'assets/img/login.jpg' %}" alt="" class="w-100 h-100">
+                        </div> {% endcomment %}
+                        <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center">
+                            <div class="text-center rounded-circle bg-secondary text-white display-4 d-flex justify-content-center align-items-center" style="width: 100px; height: 100px;">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <div class="p-5 w-100">
+                                <div class="text-center mb-4">
+                                    <h1 class="h4 text-gray-900 mb-4">Authenticate Your Account</h1>
+                                    <p>Please confirm your account by entering the authorization code sent to <span>ps*****@gmail.com</span></p>
+                                </div>
+                                <form class="user">
+                                    <div class="form-outline my-3">
+                                        <input type="number" name="" id="otp" class="form-control" title="Email" required>
+                                        <label for="otp" class="form-label">OTP</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block">Verify</button>
+                                </form>
+                            </div>
+                            <div>
+                                <p>It may take a minute to receive your code.</p>
+                                <p>Haven't received it? <span class="text-primary cursor-pointer" id="ResendCode">Resend a new code.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock BodyOutContent %}

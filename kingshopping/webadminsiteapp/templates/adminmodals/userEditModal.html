@@ -1,0 +1,111 @@
+<div class="modal fade" id="userEditModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">User</h5>
+            </div>
+            {% comment %} <form action="{% url 'usersEdit' %}" method="post">
+                {% csrf_token %} {% endcomment %}
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <figure class="d-flex justify-content-center">
+                                <div class="userimage rounded p-3 shadow" style="width: 15rem; height: 15rem;">
+                                    <img src="" alt="" id="eUserprofile" class="w-100 h-100 rounded object-fit-scale">
+                                </div>
+                            </figure>
+                        </div>
+
+                        <div class="col-8">
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-outline my-2">
+                                        <input type="text" id="efirstname" class="form-control" required readonly>
+                                        <label class="form-label" for="efirstname">Firstname</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-outline my-2">
+                                        <input type="text" id="elastname" class="form-control" required readonly>
+                                        <label class="form-label" for="elastname">Lastname</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-outline my-2">
+                                        <input type="text" name="email" id="eemail" class="form-control" required readonly>
+                                        <label class="form-label" for="eemail">Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-outline my-2">
+                                        <input type="text" name="username" id="eusername" class="form-control" required readonly>
+                                        <label class="form-label" for="eusername">Username</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-outline my-2">
+                                        <input type="text" id="ephone" class="form-control" required readonly>
+                                        <label class="form-label" for="ephone">Phone</label>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-outline my-2">
+                                        <input type="text" id="edob" class="form-control" required readonly>
+                                        <label class="form-label" for="edob">Date Of Birth</label>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-outline my-2">
+                                        <input type="text" id="egender" class="form-control" required readonly>
+                                        <label class="form-label" for="egender">Gender</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-outline my-2">
+                                        <input type="text" id="ecity" class="form-control text-capitalize" required readonly>
+                                        <label class="form-label" for="ecity">City</label>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-outline my-2">
+                                        <input type="text" id="estate" class="form-control text-capitalize" required readonly>
+                                        <label class="form-label" for="estate">State</label>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-outline my-2">
+                                        <input type="text" id="ecountry" class="form-control text-capitalize" required readonly>
+                                        <label class="form-label" for="ecountry">Country</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% comment %} <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group pt-2">
+                                        <select id="useractive" name="useractive" class="form-select" required>
+                                            <option value="active">Active</option>
+                                            <option value="deactive">Deactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btnmodalclose btn btn-outline-warning" data-dismiss="#userEditModal">Close</button>
+                    {% comment %} <button type="submit" class="btnmodalusersubmit btn btn-outline-primary">submit</button> {% endcomment %}
+                </div>
+            {% comment %} </form> {% endcomment %}
+        </div>
+    </div>
+</div>

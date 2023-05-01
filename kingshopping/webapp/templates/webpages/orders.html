@@ -1,0 +1,133 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} Your Order History {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+
+    {% if login_user != None %}
+
+        {% if totalorders != 0 %}
+            <div class="container d-flex justify-content-center my-5">
+
+                <div class="row w-100">
+                    
+                    <div class="col-md-12 mt-2 text-center">
+                        <h4>Your <span class="text-primary">Orders</span></h4>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        {% for custorder in allorders %}
+                            <div class="card card-body shadow border-0 p-0 p-4 my-5 rounded">
+
+                                <div class="row">
+                                    <div class="col-2">
+                                        <figure class="product-media bg-white py-2" style="width: 150px; height: 150px; overflow: hidden;">
+                                            <img src="{{custorder.proimage1.url}}" alt="Product image" class="p-2 bg-white w-100 h-100 object-fit-scale">
+                                        </figure>
+                                    </div>
+
+                                    <div class="col-8">
+                                        <div class="media-body p-3">
+                                            <h6 class="font-weight-semibold">
+                                                <a href="/product?proname={{custorder.proname|slice:70}}&proid={{custorder.proid}}&procolor={{custorder.procolorname}}&proprice={{custorder.proprice}}" title="{{custorder.proname}}">
+                                                    {{custorder.proname}}
+                                                </a>
+                                            </h6>
+                                            <ul class="list-inline list-inline-dotted my-3 mb-lg-2">
+                                                <li class="list-inline-item"><a href="#" class="text-muted" data-abc="true">{{custorder.cid}}</a></li><br>
+                                                <li class="list-inline-item"><div class="text-muted" data-abc="true"><span class="font-weight-bold text-primary">Order Date :</span> {{custorder.ordate}}</div></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <div class="h-100 d-flex justify-content-around align-items-center flex-column">
+                                            <h5 class="mb-0 font-weight-semibold">
+                                                <i class="fas fa-rupee-sign mr-2"></i>
+    
+                                                {% comment %} it means productprice * productqty {% endcomment %}
+                                                {% widthratio custorder.proprice 1 custorder.proqty %}
+    
+                                            </h5>
+    
+    
+                                            <a href="/orders/orderdetails?&prooid={{custorder.oid}}" class="btn btn-primary text-white rounded">
+                                                <i class="icon-eye display-6 mr-3"></i>
+                                                View Order
+                                            </a>
+    
+                                            {% if custorder.productstatus == "cancel" %}
+                                                <h6 class="text-danger text-capitalize">Cancel</h6>
+                                            {% elif custorder.returnpro == "Yes" and custorder.productstatus == "delived" %}    
+                                                <h6 class="text-success text-capitalize">Return</h6>
+                                            {% else %}
+                                                <h6 class="text-success text-capitalize">{{custorder.productstatus}}</h6>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {% comment %} Your Order is Replace Order Is Cancel {% endcomment %}
+                                {% if custorder.returnpro == "Replace" and custorder.productstatus == "cancel" %}
+                                <div class="alert alert-danger rounded" role="alert">
+                                    <strong>This Order Replace Is Cancel.</strong>
+                                </div>
+
+                                {% comment %} Your Order Is Return {% endcomment %}
+                                {% elif custorder.returnpro == "Return" and custorder.productstatus == "delived" %}
+                                    <div class="alert alert-success rounded" role="alert">
+                                        <strong>This Order Is Return.</strong>
+                                    </div>
+
+                                {% comment %} Your Order Is Replace {% endcomment %}
+                                {% elif custorder.returnpro == "Replace" %}
+                                    <div class="alert alert-primary rounded" role="alert">
+                                        <strong>This Order Is Replace.</strong>
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+
+            </div>
+        {% else %}
+            <div class="container my-5">
+                <div class="shadow p-5 d-flex justify-content-center align-items-center flex-column rounded">
+                    <div style="weight: 250px; height: 170px;">
+                        <figure class="w-100 h-100">
+                            <img src="{% static 'assets/images/cartempty.png' %}" alt="" class="w-100 h-100">
+                        </figure>
+                    </div>
+                    <div class="my-3 h6">Your orders is empty!</div>
+                    
+                    <button class="btn btn-primary btncartshopnow">Shop Now</button>
+
+                </div>
+            </div>
+        {% endif %}
+
+    {% else %}
+
+        <div class="container">
+
+            <div class="w-100 h-100 d-flex justify-content-center align-items-center p-5 m-5 shadow rounded">
+                <div class="text-center">
+                    <h4 class="mb-3">Please! Sign In In Your Account?</h4>
+                    <button type="button" class="btn btn-outline-primary-2" data-toggle="modal" data-target="#signin-modal">
+                        <span>LOG IN</span>
+                        <i class="icon-long-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    {% endif %}
+
+{% endblock bodycontent %}

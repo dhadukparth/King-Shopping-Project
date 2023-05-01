@@ -1,0 +1,41 @@
+<!-- Address Modal -->
+<div class="modal fade" id="upaddressModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            
+            <form action='/account/address/edit/' method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+                    <div class="form-box">
+                        <div class="text-center mb-3">
+                            <h4>Update Address</h4>
+                        </div>
+                        <div>
+                            <div class="form-outline my-2">
+                                <label for="addressTitle" class="form-label">Address Title</label>
+                                <input type="text" name="editaddrtitle" id="addressTitle" class="text-capitalize form-control" required autofocus>
+                            </div>
+                            <div class="form-outline my-2">
+                                <label for="addressDescription" class="form-label">Address</label>
+                                <textarea name="editaddrdescription" id="addressDescription" rows="6" class="form-control m-0" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-choice mt-3">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button type="reset" class="btn btn-login w-100" data-dismiss="modal">Close</button>
+                                </div><!-- End .col-6 -->
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-login w-100">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

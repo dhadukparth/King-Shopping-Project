@@ -1,0 +1,268 @@
+<aside class="sidebar-shop sidebar-filter">
+    <div class="sidebar-filter-wrapper">
+        <div class="widget widget-clean">
+            <h6 class="m-0">Filters</h6>
+            <a class="sidebar-filter-clear cursor-pointer">Clean All</a>
+        </div>
+
+        {% comment %} Products All Brands List {% endcomment %}
+        <div class="widget widget-collapsible">
+            <h3 class="widget-title mb-2">
+                <a data-toggle="collapse" data-target="#brandcollapse" role="button" aria-expanded="true"
+                    class="collapsed" aria-controls="widget-1">
+                    Brands
+                </a>
+            </h3>
+
+            <div class="collapse show" id="brandcollapse">
+                <div class="widget-body">
+                    <div class="filter-items filter-items-count">
+
+                        {% for brand in filters.brands %}
+
+                            <div class="filter-item">
+                                <div class="custom-control custom-checkbox">
+                                    <input title="{{brand.bname}}" type="checkbox"
+                                        class="ProductFilter custom-control-input" id="{{brand.bname}}"
+                                        {% for selectbrands in selectedValues.brands %}
+                                            {% if selectbrands|lower == brand.bname|lower %}
+                                                checked
+                                            {% endif %}
+                                        {% endfor %}
+                                            data-brands="{{brand.bname}}" data-category="{{catname}}" />
+                                    <label title="{{brand.bname}}" class="custom-control-label" for="{{brand.bname}}">{{brand.bname}}</label>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% comment %} Product All Colors {% endcomment %}
+        <div class="widget widget-collapsible">
+            <h3 class="widget-title mb-2">
+                <a data-toggle="collapse" data-target="#colorscollapse" role="button" aria-expanded="true"
+                    aria-controls="widget-3" class="collapsed">
+                    Colour
+                </a>
+            </h3>
+
+            <div class="collapse show" id="colorscollapse">
+                <div class="widget-body">
+                    <div class="filter-colors">
+
+                        {% for color in filters.colors %}
+                            {% if filters.colorcount <= 7 %}
+                                <div class="form-check pl-0">
+                                    <input type="checkbox" class="ProductFilter colorcheck form-check-input" name="" id="{{color.procolorname}}"
+                                        data-category="{{catname}}" data-colors="{{color.procolorname}}"
+                                        {% for selectcolor in selectedValues.colors %}
+                                            {% if selectcolor|lower == color.procolorname|lower %}
+                                                checked
+                                            {% endif %}
+                                        {% endfor %}>
+                                    <label class="filter-colors-check border p-1 cursor-pointer
+                                        {% for selectcolor in selectedValues.colors %}
+                                            {% if selectcolor|lower == color.procolorname|lower %}
+                                                active
+                                            {% endif %}
+                                        {% endfor %}" 
+                                        for="{{color.procolorname}}"
+                                        title="{{color.procolorname}}" style="background-color: {{color.procolor}}">
+                                    </label>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% comment %} Product Set The Minimam and Maxmimum Proce {% endcomment %}
+        <div class="widget widget-collapsible">
+            <h3 class="widget-title mb-2">
+                <a data-toggle="collapse" data-target="#pricecollapse" role="button" aria-expanded="true"
+                    aria-controls="widget-5" class="collapsed">
+                    Price
+                </a>
+            </h3>
+
+            <div class="collapse show" id="pricecollapse">
+                <div class="widget-body">
+                    <div class="filter-price p-0">
+                        <div id="price-slider">
+                            <div class="row">
+                                <div class="col-lg-6">
+
+                                    {% if filters.pricemin > 100 and filters.pricemax <  8000  %}
+                                        <div class="form-group">
+                                            <label for="minimumPrice">Minimum</label>
+                                            <select class="ProductFilterPrice form-control" name="" id="minimumPrice" data-category="{{catname}}">
+                                                <option {% if selectedValues.minprice == "250" %} selected {% else %} selected{% endif %} value="250">250</option>
+                                                <option {% if selectedValues.minprice == "500" %} selected {% endif %} value="500">500</option>
+                                                <option {% if selectedValues.minprice == "1000" %} selected {% endif %} value="1000">1000</option>
+                                                <option {% if selectedValues.minprice == "2000" %} selected {% endif %} value="2000">2000</option>
+                                                <option {% if selectedValues.minprice == "3000" %} selected {% endif %} value="3000">3000</option>
+                                            </select>
+                                        </div>
+
+                                    {% else %}
+
+                                        <div class="form-group">
+                                            <label for="minimumPrice">Minimum</label>
+                                            <select class="ProductFilterPrice form-control" name="" id="minimumPrice" data-category="{{catname}}">
+                                                <option {% if selectedValues.minprice == "5000" %} selected {% else %} selected{% endif %} value="5000">5000</option>
+                                                <option {% if selectedValues.minprice == "10000" %} selected {% endif %} value="10000">10000</option>
+                                                <option {% if selectedValues.minprice == "15000" %} selected {% endif %} value="15000">15000</option>
+                                                <option {% if selectedValues.minprice == "20000" %} selected {% endif %} value="20000">20000</option>
+                                                <option {% if selectedValues.minprice == "30000" %} selected {% endif %} value="30000">30000</option>
+                                            </select>
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+                                <div class="col-lg-6">
+
+                                    {% if filters.pricemin > 100 and filters.pricemax < 8000  %}
+                                        <div class="form-group">
+                                            <label for="priceMaximum">Maximum</label>
+                                            <select class="ProductFilterPrice form-control" name="" id="maximumPrice" data-category="{{catname}}">
+                                                <option {% if selectedValues.maxprice == "500" %} selected {% endif %} value="500">500</option>
+                                                <option {% if selectedValues.maxprice == "1500" %} selected {% endif %} value="1500">1500</option>
+                                                <option {% if selectedValues.maxprice == "2000" %} selected {% endif %} value="2000">2000</option>
+                                                <option {% if selectedValues.maxprice == "3000" %} selected {% endif %} value="3000">3000</option>
+                                                <option {% if selectedValues.maxprice == "4000" %} selected {% endif %} value="4000">4000</option>
+                                                <option {% if selectedValues.maxprice == "5000" %} selected {% endif %} value="5000">5000+</option>
+                                            </select>
+                                        </div>
+
+                                    {% else %}
+
+                                        <div class="form-group">
+                                            <label for="priceMaximum">Maximum</label>
+                                            <select class="ProductFilterPrice form-control" name="" id="maximumPrice" data-category="{{catname}}">
+                                                <option {% if selectedValues.maxprice == "15000" %} selected {% endif %} value="15000">15000</option>
+                                                <option {% if selectedValues.maxprice == "20000" %} selected {% endif %} value="20000">20000</option>
+                                                <option {% if selectedValues.maxprice == "25000" %} selected {% endif %} value="25000">25000</option>
+                                                <option {% if selectedValues.maxprice == "30000" %} selected {% endif %} value="30000">30000</option>
+                                                <option {% if selectedValues.maxprice == "40000" %} selected {% endif %} value="40000">40000</option>
+                                                <option {% if selectedValues.maxprice == "50000" %} selected {% endif %} value="50000">50000+</option>
+                                            </select>
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% comment %} Product All Size {% endcomment %}
+        {% if filters.clothessize != "" %}
+        <div class="widget widget-collapsible">
+            <h3 class="widget-title mb-2">
+                <a data-toggle="collapse" data-target="#sizecollapse" role="button" aria-expanded="true"
+                    aria-controls="widget-2" class="collapsed">
+                    Size
+                </a>
+            </h3>
+
+            <div class="collapse show" id="sizecollapse">
+                <div class="widget-body">
+                    <div class="filter-items">
+
+                        {% for clothesize in filters.clothessize %}
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="ProductFilter custom-control-input" id="{{clothesize.clothes_size}}" 
+                                    {% for selectSize in selectedValues.size %}
+                                        {% if selectSize == clothesize.clothes_size %} checked {% endif %}
+                                    {% endfor %}
+                                data-category="{{catname}}" data-size="{{clothesize.clothes_size}}" />
+                                <label class="custom-control-label" for="{{clothesize.clothes_size}}">{{clothesize.clothes_size}}</label>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
+        {% comment %} Product Ram {% endcomment %}
+        {% if filters.proram != "" %}
+        <div class="widget widget-collapsible">
+            <h3 class="widget-title mb-2">
+                <a data-toggle="collapse" data-target="#ramcollapse" role="button" aria-expanded="true"
+                    aria-controls="widget-2" class="collapsed">
+                    RAM
+                </a>
+            </h3>
+
+            <div class="collapse show" id="ramcollapse">
+                <div class="widget-body">
+                    <div class="filter-items">
+
+                        {% for proram in filters.proram %}
+                            {% if proram.ram != "No" %}
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="ProductFilter custom-control-input" data-ram="{{proram.ram}}"
+                                        {% for checkRam in selectedValues.ram %}
+                                            {% if checkRam|lower == proram.ram|lower %} checked {% endif %}
+                                        {% endfor %}
+                                        data-category="{{catname}}" id="{{proram.ram}}" />
+                                    <label class="custom-control-label" for="{{proram.ram}}">{{proram.ram}}</label>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
+        {% comment %} Product ROM {% endcomment %}
+        {% if filters.prorom != "" %}
+        <div class="widget widget-collapsible">
+            <h3 class="widget-title mb-2">
+                <a data-toggle="collapse" data-target="#romcollapse" role="button" aria-expanded="true"
+                    aria-controls="widget-2" class="collapsed">
+                    ROM
+                </a>
+            </h3>
+
+            <div class="collapse show" id="romcollapse">
+                <div class="widget-body">
+                    <div class="filter-items">
+                        {% for prorom in filters.prorom %}
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="ProductFilter custom-control-input" data-rom="{{prorom.rom}}"
+                                {% for checkRom in selectedValues.rom %}
+                                    {% if checkRom|lower == prorom.rom|lower %} checked {% endif %}
+                                {% endfor %}
+                                data-category="{{catname}}" id="{{prorom.rom}}" />
+                            <label class="custom-control-label" for="{{prorom.rom}}">{{prorom.rom}}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+    </div>
+</aside>

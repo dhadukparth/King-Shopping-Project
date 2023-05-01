@@ -1,0 +1,48 @@
+{% extends 'common/admincommon.html' %}
+{% block WebTitle %} Notifications {% endblock WebTitle %}
+{% block BodyContent %}
+
+
+<div class="container-fluid">
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Notifications</h6>
+        </div>
+        <div class="card-body ficontentbox">
+            <div class="row">
+
+                {% for issues in allissues %}
+                    <div class="col-xl-4 col-lg-6 m-0">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="shownotificationbtn text-md font-weight-bold text-primary text-capitalize mb-1 cursor-pointer" data-id="{{issues.issuesid}}">
+                                            {{issues.issueshort}} - {{issues.idate}}
+                                        </div>
+                                        <p class="m-0">
+                                            {{issues.issues}}
+                                        </p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-exclamation-circle  fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock BodyContent %}
+
+{% block ModalContent %}
+    {% include 'adminmodals/notificationModal.html' %}
+{% endblock ModalContent %}

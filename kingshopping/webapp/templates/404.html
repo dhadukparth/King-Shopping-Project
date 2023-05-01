@@ -1,0 +1,22 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} 404 Page {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+    <div class="page-wrapper">
+        <main class="main">
+        	<div class="error-content text-center" style="background-image: url({% static 'assets/images/backgrounds/error-bg.jpg' %})">
+            	<div class="container">
+            		<h1 class="error-title">Error 404</h1><!-- End .error-title -->
+            		<p>We are sorry, the page you've requested is not available.</p>
+            		<a href="/" class="btn btn-outline-primary-2 btn-minwidth-lg">
+            			<span>BACK TO HOMEPAGE</span>
+            			<i class="icon-long-arrow-right"></i>
+            		</a>
+            	</div><!-- End .container -->
+        	</div><!-- End .error-content text-center -->
+        </main><!-- End .main -->
+
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+{% endblock bodycontent %}

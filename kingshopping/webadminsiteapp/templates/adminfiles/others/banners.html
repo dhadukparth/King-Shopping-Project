@@ -1,0 +1,73 @@
+{% extends 'common/admincommon.html' %}
+{% block WebTitle %} Notifications {% endblock WebTitle %}
+{% load static %}
+{% block BodyContent %}
+
+
+<div class="container-fluid">
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <form action="{% url 'Banners' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <figure class="m-0">
+                            <div class="bannerImage rounded p-3 shadow-inset cursor-pointer w-100 position-relative" style="height: 15rem;">
+                                <img src="{% static 'assets/img/uploadimage.png' %}" alt="Banner Upload" class="bannerImage w-100 h-100 object-fit-scale rounded" onclick="targeimage('.bannerUploadImage')">
+                                <input type="file" name="banneruploadimage" class="bannerUploadImage form-control d-none" accept=".png,.jpg,.jpeg" required>
+                                <div class="uploadProductImage1 text-center position-absolute" style="bottom: 5%; left: 50%; transform: translate(-50%, -50%);">Upload Your Banner</div>
+                                <div class="myprocessbar"></div>
+                            </div>
+                        </figure>
+
+                        <div class="uploadBannerForm row d-none">
+                            <div class="col-12 my-2">
+                                <select name="productName" id="productName" class="form-control form-control-alternative" required>
+                                    <option value="">Select Product</option>
+                                    {% for product in products %}
+                                        <option value="{{product.proname}}">{{product.proname}} - ({{product.cid}})</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-outline-primary w-100 my-2">Upload</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-body w-auto">
+            <div class="text-center">
+                <h2>All Banners</h2>
+            </div>
+            <div class="row">
+                {% for banner in banners %}
+                    <div class="col-md-6">
+                        <figure class="allBannerImage m-0 position-relative">
+                            <div class="rounded cursor-pointer w-100 h-fit-content">
+                                <img src="{{banner.bannerImage.url}}" alt="Banner" class="w-100 h-100 p-3 object-fit-scale rounded shadow">
+                            </div>
+                            <div class="bannerRemovePanel position-absolute top-0 left-0 w-100 h-100 d-none" style="background: #7c7d7e80;">
+                                <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+                                    <h4 class="fa fa-trash  text-white cursor-pointer bannerRemoveBtn" aria-hidden="true" title="Remove Banner" data-id="{{banner.bannerid}}"></h4>
+                                </div>
+                            </div>
+                        </figure>
+                    </div>
+                {% empty %}
+                    <div class="col-md-12">
+                        <h3 class="text-center p-5 my-3 shadow rounded">Banners Are Empty.</h3>
+                    </div
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock BodyContent %}

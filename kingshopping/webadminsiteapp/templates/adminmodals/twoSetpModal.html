@@ -1,0 +1,34 @@
+<div class="modal fade" id="twosteponModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Two Step Authontication</h5>
+                <button class="btnmodalclose close" type="button" data-dismiss="#twosteponModal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col my-2">
+                                <div>
+                                    <div>Enter the {{useremail}} email address</div>
+                                </div>
+                                <div class="form-outline my-2">
+                                    <input type="email" name="" id="useremail" class="form-control" required>
+                                    <label for="useremail" class="form-label">Email Address</label>
+                                </div>
+                                <span class="errormsg text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="twostepclose" class="btnmodalclose btn btn-outline-warning" type="button" data-dismiss="#twosteponModal">Cancel</button>
+                    <button class="btn btn-outline-primary" type="button" id="adminemailid">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

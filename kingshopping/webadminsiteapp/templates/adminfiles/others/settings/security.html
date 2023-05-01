@@ -1,0 +1,71 @@
+{% extends 'adminfiles/others/settings.html' %}
+{% block WebTitle %} Security & Protection {% endblock WebTitle %}
+{% load static %}
+
+{% block SettingBoxContent %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">Security</h6>
+    </div>
+
+    <div class="securitybox card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="personal">
+                    <form method="POST" action="{% url 'securitySetting' %}">
+                        {% csrf_token %}
+                        <div class="d-flex my-3 align-items-center">
+                            <h4>Change Password</h4>
+                            <button type="button" title="Send OTP" class="text-primary btn shadow-0 ms-3" id="passchangebtnotp">Send OTP</button>
+                            <div class="regetnewotp d-none ml-4 text-danger font-weight-bold h6 m-0"></div>
+                        </div>
+                        <div class="form-outline my-3">
+                            <input type="password" name="oldpassword" id="oldpassword" class="form-control" title="Old Password" readonly required>
+                            <label for="oldpassword" class="form-label">OldPassword</label>
+                        </div>
+                        <div class="form-outline my-3">
+                            <input type="password" name="newpassword" id="password" class="form-control" title="New Password" readonly required>
+                            <label for="password" class="form-label">Password</label>
+                        </div>
+                        <div class="form-outline my-3">
+                            <input type="password" name="repassword" id="repassword" class="form-control" title="New Re-Password" readonly required>
+                            <label for="repassword" class="form-label">Re - Password</label>
+                        </div>
+                        <div class="my-3 d-flex" id="changepasswordbtns"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="personal">
+                    <div class="d-flex my-3 align-items-center">
+                        <h4>Two Step Authentication</h4>
+                    </div>
+                    <div id="twostepsecurityModalOpen" class="{% if twostep == 1 %} twosetofflinebox {% else %} twosetlinebox {% endif %} d-flex justify-content-between align-items-center p-2 cursor-pointer rounded" data-target="{% if twostep == 1 %} #twostepoffModal {% else %} #twosteponModal {% endif %}">
+                        <div>Two Step Authontication</div>
+                        <div class="d-flex">
+                            <i class="fas fa-check {% if twostep == 1 %} bg-success {% else %} bg-secondary {% endif %} text-white rounded-circle p-1"></i>
+                            <div class="ml-2">{% if twostep == 1 %} On {% else %} Off {% endif %}</div>
+                        </div>
+                        <i class="fas fa-angle-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock SettingBoxContent %}
+
+{% block ModalContent %}
+
+    {% if twostep == 1 %} 
+        {% include 'adminmodals/passwordModal.html' %}
+        {% include 'adminmodals/twostepoffModal.html' %}
+    {% else %}
+        {% include 'adminmodals/otpModal.html' %}
+        {% include 'adminmodals/twoSetpModal.html' %}
+    {% endif %}
+
+{% endblock ModalContent %}

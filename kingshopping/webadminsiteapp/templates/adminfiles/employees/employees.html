@@ -1,0 +1,207 @@
+{% extends 'common/admincommon.html' %}
+{% block WebTitle %} Employees {% endblock WebTitle %}
+{% block BodyContent %}
+
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th class="nosort th-last-10">Controls</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for empd in allsetemp %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{empd.efirstname}}</td>
+                                    <td>{{empd.elastname}}</td>
+                                    <td>{{empd.username}}</td>
+                                    <td>{{empd.email}}</td>
+                                    <td>{{empd.ephone}}</td>
+                                    <td class="position-relative">
+                                        <div class="tablesubmenu justify-content-around d-flex">
+                                            <button class="eEmployeeEdit modalbtn btn btn-sm btn-outline-primary" title="View" type="button" data-click="{{empd.eid_id}}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="eEmployeeRemove modalbtn btn btn-sm btn-outline-danger" title="Remove" type="button" data-click="{{empd.eid_id}}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock BodyContent %}
+
+
+{% block ModalContent %}
+
+    <div class="modal fade" id="employeeEditModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Employee</h5>
+                </div>
+                
+                <form action="{% url 'employees' %}" method="POST" enctype="multipart/form-data" id="EmployeeForm">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 col-12">
+                                <figure class="d-flex justify-content-center">
+                                    <div class="userimage rounded p-3 shadow cursor-pointer" style="width: 15rem; height: 15rem;">
+                                        <img class="chooseimagebtn w-100 h-100 rounded object-fit-scale" id="eEprofileimage">
+                                        <input type="file" name="ueprofile" id="chooseimageinput" class="form-control d-none" accept=".png,.jpg,.jpeg">
+                                    </div>
+                                </figure>
+                            </div>
+
+                            <div class="col-md-8 col-12">
+
+                                <div class="row">
+                                    <div class="col-md-6 col-12 my-2">
+                                        <div class="form-outline">
+                                            <input type="text" name="uefirstname" id="eEfirstname" class="form-control" required>
+                                            <label class="form-label" for="eEfirstname">Firstname</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12 my-2">
+                                        <div class="form-outline">
+                                            <input type="text" name="uelastname" id="eElastname" class="form-control" required>
+                                            <label class="form-label" for="eElastname">Lastname</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-12 my-2">
+                                        <div class="form-outline">
+                                            <input type="email" name="ueemail" id="eEemail" class="form-control" required>
+                                            <label class="form-label" for="eEemail">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12 my-2">
+                                        <div class="form-outline">
+                                            <input type="text" name="ueusername" id="eEusername" class="form-control" required>
+                                            <label class="form-label" for="eEusername">Username</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-12 my-2">
+                                        <div class="form-outline">
+                                            <input type="number" name="uephone" id="eEphone" class="form-control" required>
+                                            <label class="form-label" for="eEphone">Phone</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-12 my-2">
+                                        <div class="form-outline">
+                                            <input type="date" name="uedob" id="eEdob" class="form-control" required>
+                                            <label class="form-label" for="eEdob">Date Of Birth</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-12 my-2">
+                                        <div class="form-outline">
+                                            <input type="number" name="uesalary" id="eEsalary" class="form-control"
+                                                title="Employee Salary" required />
+                                            <label class="form-label" for="salary">Salary</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-12 my-2">
+                                        <div class="form-gruop m-0">
+                                            <select id="eEgander" name="uegender" class="form-select" title="Select Gender" required>
+                                                <option selected>Select Gender</option>
+                                                <option name="male">Male</option>
+                                                <option name="female">Female</option>
+                                                <option name="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12 my-2">
+                                        <div class="form-group m-0">
+                                            <select id="eEdeparement" name="uedeparement" class="form-select" title="Select Deparement" required>
+                                                <option selected>Select Deparement</option>
+                                                <option name="administrator">Administrator</option>
+                                                <option name="delivery">Delivery</option>
+                                                <option name="employee">Employee</option>
+                                                <option name="hr">HR</option>
+                                                <option name="manager">Manager</option>
+                                                <option name="packing">Packing</option>
+                                                <option name="securitygard">Security Gard</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 my-2">
+                                        <div class="form-outline">
+                                            <textarea class="form-control" name="ueaddress" id="eEaddress" rows="5" title="Employee Address" required></textarea>
+                                            <label class="form-label" for="eEaddress">Address</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-12 my-2">
+                                        <div class="form-outline">
+                                            <input type="text" name="uecity" id="eEcity" class="form-control text-capitalize" required>
+                                            <label class="form-label" for="eEcity">City</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-12 my-2">
+                                        <div class="form-outline">
+                                            <input type="text" name="uestate" id="eEstate" class="form-control text-capitalize" required>
+                                            <label class="form-label" for="eEstate">State</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-12 my-2">
+                                        <div class="form-outline">
+                                            <input type="text" name="uecountry" id="eEcountry" class="form-control text-capitalize" required>
+                                            <label class="form-label" for="eEcountry">Country</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btnmodalclose btn btn-outline-warning" data-dismiss="#employeeEditModal">Close</button>
+                        <button type="submit" class="btn btn-outline-primary">Save</button>
+                    </div>
+                    
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% include 'adminmodals/deleteModal.html' %}
+
+
+{% endblock ModalContent %}

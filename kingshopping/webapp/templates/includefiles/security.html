@@ -1,0 +1,152 @@
+{% extends 'webpages/settings.html' %}
+{% block webtitle %} Security {% endblock webtitle %}
+{% load static %}
+
+{% block settingmenucontent %}
+
+{% if login_user != None %}
+        <div class="card rounded my-3 border-0">
+            <div class="card-body p-5">
+
+                <!-- User Account Information -->
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="heading-small text-muted mb-4">Change Password</h6>
+                        <div class="passwordeditBtn cursor-pointer">
+                            <i class="fas fa-pen heading-small"></i>
+                            <span class="ml-2">Change</span>
+                        </div>
+                        <div class="regetnewotp d-none ml-4 text-danger font-weight-bold h6 m-0"></div>
+                    </div>
+                    <div class="pl-lg-4">
+                        <form action="{% url 'security' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="oldpassword">Old Password</label>
+                                        <input type="password" name="oldpassword" id="oldpassword" class="passwordInput form-control form-control-alternative" required disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="newpassword">New Password</label>
+                                        <input type="password" name="newpassword" id="newpassword" class="passwordInput form-control form-control-alternative" required disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="newrepassword">New Re-Password</label>
+                                        <input type="password" name="newrepassword" id="newrepassword" class="passwordInput form-control form-control-alternative" required disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row buttonsRow d-none" id="otpaftercheck">
+                                <div class="col-lg-6">
+                                    <button type="button" class="cancelbtn btn btn-login btn-g w-100">Cancel</button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-login btn-g w-100">Change Password</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                
+                <h6 class="heading-small text-muted mb-4">Two Step Authentication</h6>
+                <div class="pl-lg-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="{% if twostep == 1 %} twosetofflinebox {% else %} twosetlinebox {% endif %} d-flex justify-content-between align-items-center p-3 cursor-pointer rounded" data-toggle="modal" data-target="{% if twostep == 1 %} #twostepoffModal {% else %} #twostepModal {% endif %}">
+                                <div>Two Step Authontication</div>
+                                <div class="d-flex">
+                                    <i class="fas fa-check {% if twostep == 1 %}bg-success {% else %} bg-gray{% endif %} text-white rounded-circle d-flex justify-content-center align-items-center" style="width: 30px; height: 30px;"></i>
+                                    <div class="ml-2">{% if twostep == 1 %} On {% else %} Off {% endif %}</div>
+                                </div>
+                                <i class="fas fa-angle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                
+                <h6 class="heading-small text-muted mb-4">Deactive Account</h6>
+                <div class="pl-lg-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-danger cursor-pointer font-weight-bold" data-toggle="modal" data-target="#deactivepasswordModal">Deactive Account</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    {% else %}
+
+        <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+            <div class="text-center">
+                <h4 class="mb-3">Please! Sign In In Your Account?</h4>
+                <button type="button" class="btn btn-outline-primary-2" data-toggle="modal" data-target="#signin-modal">
+                    <span>LOG IN</span>
+                    <i class="icon-long-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+    {% endif %}  
+
+{% endblock settingmenucontent%}
+
+
+{% block pageModals %}
+
+    {% if twostep == 0 %}
+        {% include 'modals/twostepModal.html' %}
+        
+    {% elif twostep == 1 %}
+        {% include 'modals/passwordModal.html' %}
+        {% include 'modals/twostepoffmodal.html' %}
+    {% endif %}
+
+
+    {% comment %} Deactive Account Password Modal {% endcomment %}
+    <div class="modal fade" id="deactivepasswordModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="/account/security/deactive/" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="icon-close"></i></span>
+                        </button>
+                        <div class="p-5">
+                            <div class="pt-2">
+                                <h6>Enter Your Password</h6>
+                            </div>
+                            <div class="form-group m-0">
+                                <input type="password" class="form-control" id="userloginpassword" name="userloginpassword" required autofocus>
+                                <span class="twoerror text-danger"></span>
+                            </div>
+                            <div class="form-choice mt-3">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn btn-login w-100" id="userpasswordbtn">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock pageModals %}

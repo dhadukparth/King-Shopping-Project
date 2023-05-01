@@ -1,0 +1,89 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} King Shopping {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+
+    {% if login_user != None %}
+
+        <main class="main">
+            
+            <div class="mt-2"></div>
+            
+            <div class="page-content">
+                <div class="container">
+
+                    {% for wish in allwishdata %}
+                        {% if forloop.counter == 1 %}
+                            <div class="col-md-12 my-5 text-center">
+                                <h4>Your <span class="text-primary">WishList</span></h4>
+                            </div>
+                        {% endif %}
+                        <div class="shadow d-flex justify-content-between p-4 my-3 rounded">
+                            <div class="d-flex">
+                                <div>
+                                    <figure class="product-media bg-white shadow py-2 rounded" style="width: 150px; height: 150px; overflow: hidden;">
+                                        <img src="{{wish.proimage1.url}}" alt="Product image" class="p-2 bg-white w-100 h-100 object-fit-scale">
+                                    </figure>
+                                </div>
+                                <div class="ml-5 py-3">
+                                    <div class="pb-1">
+                                        <a href="/product?proname={{wish.proname|slice:70}}&proid={{wish.proid}}&procolor={{wish.procolorname}}&proprice={{wish.proprice}}" title="{{wish.proname}}">
+                                            <div class="product-title h-25">
+                                                {{wish.proname}}
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="product-price">
+                                        <i class="fas fa-rupee-sign pr-2"></i>{{wish.proprice}}
+                                    </div>
+
+                                    {% if wish.prostock == 0 %}
+                                        <div class="text-danger h6">
+                                            Out of Stock
+                                        </div>
+                                    {% endif %}
+                                    
+                                </div>
+                            </div>
+                            <div class="pr-3 pt-2 h5">
+                                <div class="wishlistIconRemoveBtn text-danger cursor-pointer" title="Remove" data-click="{{wish.proid}}">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% empty %}
+
+                        <div class="shadow p-5 d-flex justify-content-center align-items-center flex-column rounded">
+                            <figure>
+                                <img src="{% static 'assets/images/wishlistempty.png' %}" alt="">
+                            </figure>
+                            <div class="my-3 h6">Empty Wishlist</div>
+                            <div class="my-2 h6">You have no items in your wishlist. Start adding!</div>
+                        </div>
+
+
+                    {% endfor %}
+                    
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+    
+    {% else %}
+
+        <div class="container">
+
+            <div class="w-100 h-100 d-flex justify-content-center align-items-center p-5 m-5 shadow rounded">
+                <div class="text-center">
+                    <h4 class="mb-3">Please! Sign In In Your Account?</h4>
+                    <button type="button" class="btn btn-outline-primary-2" data-toggle="modal" data-target="#signin-modal">
+                        <span>LOG IN</span>
+                        <i class="icon-long-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    {% endif %}
+
+{% endblock bodycontent %}

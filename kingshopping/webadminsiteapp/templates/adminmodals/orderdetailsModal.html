@@ -1,0 +1,137 @@
+<div class="modal fade" id="orderDeatailsModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><span class="text-capitalize" id="orcustname"></span>'s Order</h5>
+                <div>
+                    <div class="font-weight-bold">Order Date : 
+                        <span id="ordatedate"></span>
+                    </div>
+                    <div id="ordercanceldate" class="ordercanceldate d-none font-weight-bold">
+                    </div>
+                </div>
+            </div>
+            <form action="{% url 'Orders' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-4">
+                                <figure class="d-flex justify-content-center">
+                                    <div class="userimage rounded p-3 shadow cursor-pointer" style="width: 15rem; height: 15rem;">
+                                        <img id="orproductimg" class="chooseimagebtn w-100 h-100 rounded object-fit-scale">
+                                    </div>
+                                </figure>
+                            </div>
+
+                            <div class="col-8">
+
+                                <div class="form-outline my-3">
+                                    <input type="text" name="orderid" id="ororderid" class="form-control" required readonly>
+                                    <label class="form-label" for="ororderid">Order ID</label>
+                                </div>
+
+                                <div class="form-outline">
+                                    <input type="text" id="orproductname" class="form-control" required readonly>
+                                    <label class="form-label" for="orproductname">Product Name</label>
+                                </div>
+
+                                <div class="row my-0">
+                                    <div class="col-4">
+                                        <div class="form-outline my-3">
+                                            <input type="text" id="orproducttotalprice" class="form-control" required readonly>
+                                            <label class="form-label" for="orproducttotalprice">Product Total Price</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-outline my-3">
+                                            <input type="text" id="orproducyQTY" class="form-control" required readonly>
+                                            <label class="form-label" for="orproducyQTY">Product QTY</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-outline my-3">
+                                            <input type="text" id="orproductcolor" class="form-control" required readonly>
+                                            <label class="form-label" for="orproductcolor">Product Color</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="orprostatus">
+                                    <select name="orproductstatus" id="orproductstatus" class="form-control form-control-alternative"></select>
+                                </div>
+
+                                <div class="form-outline my-3 d-none" id="orprocancel">
+                                    <input type="text" id="orproductcancel" class="form-control" value="Cancel" required readonly>
+                                    <label class="form-label" for="orproductcancel">Product Status</label>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-outline my-3">
+                                    <input type="text" id="orderdate" class="form-control" required readonly>
+                                    <label class="form-label" for="orderdate">Order Date</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-outline my-3">
+                                    <input type="text" id="deliverydate" class="form-control" required readonly>
+                                    <label class="form-label" for="deliverydate">Delivery Date</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-outline my-3 returndate d-none">
+                                    <input type="text" id="returndate" class="form-control" required readonly>
+                                    <label class="form-label" for="returndate">Return Date</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-outline my-3">
+                                    <input type="text" id="orusername" class="form-control" required readonly>
+                                    <label class="form-label" for="orusername">Customer Name</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-outline my-3">
+                                    <input type="text" id="oruserphone" class="form-control" required readonly>
+                                    <label class="form-label" for="oruserphone">Phone</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-outline my-3">
+                                    <input type="text" id="oruserstate" class="form-control" required readonly>
+                                    <label class="form-label" for="oruserstate">State</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-outline">
+                            <textarea id="ordeliveryaddress" rows="5" class="form-control" readonly></textarea>
+                            <label class="form-label" for="ordeliveryaddress">Delivery Address</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <div>
+                        <a class="ProductMoreDetails" target="_blank">
+                            <button type="button" class="btn btn-outline-success">Product Details</button>
+                        </a>
+                    </div>
+                    <div>
+                        <button type="button" class="btnmodalclose btn btn-outline-warning" data-dismiss="#orderDeatailsModal">Close</button>
+                        <button type="submit" class="btnordereditsave btn btn-outline-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

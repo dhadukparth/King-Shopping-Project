@@ -1,0 +1,168 @@
+{% extends 'adminfiles/others/settings.html' %}
+{% block WebTitle %} Your Profile {% endblock WebTitle %}
+{% load static %}
+
+{% block SettingBoxContent %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">Profile</h6>
+    </div>
+
+    <div class="card-body">
+        <form method="POST" action="" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="userimage rounded p-3 shadow cursor-pointer" style="width: 15rem; height: 15rem;">
+                            <img src="{{userdata.profileimage.url}}" alt="" class="chooseimagebtn w-100 h-100 rounded">
+                            <input type="file" name="empimage" id="chooseimageinput" class="form-control d-none" accept=".png,.jpg,.jpeg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="personal my-3">
+                        <div class="d-flex my-3 align-items-center">
+                            <h3>Personal Information</h3>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-outline my-2">
+                                    <input type="text" name="empfirstname" id="firstname" value="{{userdata.efirstname}}" class="form-control text-capitalize" required>
+                                    <label for="firstname" class="form-label">Firstname</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-outline my-2">
+                                    <input type="text" name="emplastname" id="lastname" value="{{userdata.elastname}}" class="form-control text-capitalize" required>
+                                    <label for="lastname" class="form-label">Lastname</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="gender my-3">
+                        <div class="mb-3">
+                            <h6>Gender</h6>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <select name="empgender" id="gender" class="form-control form-control-alternative">
+                                <option selected>Select Gender</option>
+                                <option {% if userdata.egender == 'Male' %} selected {% endif %} value="Male">Male</option>
+                                <option {% if userdata.egender == 'Female' %} selected {% endif %} value="Female">Female</option>
+                                <option {% if userdata.egender == 'Other' %} selected {% endif %} value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="gender my-3">
+                        <div class="mb-3">
+                            <h6>Birth Of Day</h6>
+                        </div>
+                        <div class="form-outline">
+                            <input type="date" name="empdob" id="dob" class="form-control" value="{{userdata.edob}}">
+                            <label for="dob" class="form-label">Birth Of Day</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="personal">
+                        <div class="d-flex my-3 align-items-center">
+                            <h4>Username</h4>
+                        </div>
+                        <div class="form-outline my-2">
+                            <input type="text" name="empusername" id="username" class="form-control text-capitalize" value="{{userob}}">
+                            <label for="text" class="form-label">Username</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="personal">
+                        <div class="d-flex my-3 align-items-center">
+                            <h4>Email Address</h4>
+                        </div>
+                        <div class="form-outline my-2">
+                            <input type="email" name="empemail" id="email" class="form-control" value="{{userob.email}}">
+                            <label for="email" class="form-label">Email</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="personal">
+                        <div class="d-flex my-3 align-items-center">
+                            <h4>Phone</h4>
+                            
+                        </div>
+                        <div class="form-outline my-2">
+                            <input type="number" name="empphone" id="mobile" class="form-control" value="{{userdata.ephone}}">
+                            <label for="mobile" class="form-label">Phone</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-4 col-lg-12">
+                    <div class="personal">
+                        <div class="d-flex my-3 align-items-center">
+                            <h4>City</h4>
+                            
+                        </div>
+                        <div class="form-outline my-2">
+                            <input type="text" name="empcity" id="city" class="form-control text-capitalize" value="{{userdata.city}}">
+                            <label for="city" class="form-label">City</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-12">
+                    <div class="personal">
+                        <div class="d-flex my-3 align-items-center">
+                            <h4>State</h4>
+                            
+                        </div>
+                        <div class="form-outline my-2">
+                            <input type="text" name="empstate" id="state" class="form-control text-capitalize" value="{{userdata.state}}">
+                            <label for="state" class="form-label">State</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-12">
+                    <div class="personal">
+                        <div class="d-flex my-3 align-items-center">
+                            <h4>Country</h4>
+                            
+                        </div>
+                        <div class="form-outline my-2">
+                            <input type="text" name="empcountry" id="country" class="form-control text-capitalize" value="{{userdata.country}}">
+                            <label for="country" class="form-label">Country</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 my-3">
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+{% endblock SettingBoxContent %}

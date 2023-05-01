@@ -1,0 +1,42 @@
+<div class="modal fade" id="editBrandModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Brand</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form  method="POST" action="/adminsideproweb/brands/edit/">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <select name="bcatname" class="form-select" id="setcategory"/>
+                                        <option disabled>Select Category</option>
+                                    </select>
+                                </div>
+                                <div class="form-outline my-4">
+                                    <input type="text" name="nbranname" id="uBrandName" class="form-control" required>
+                                    <label class="form-label" for="uBrandName">Name</label>
+                                </div>
+
+                                <div class="form-outline my-4">
+                                    <textarea name="nbranddescription" id="uBrandDescription" rows="5" class="form-control">{{editbrndata.bdescription}}</textarea>
+                                    <label class="form-label" for="uBrandDescription">Description</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btnmodalclose btn btn-outline-warning" data-dismiss="#editBrandModal">Close</button>
+                    <button type="submit" class="btn btn-outline-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

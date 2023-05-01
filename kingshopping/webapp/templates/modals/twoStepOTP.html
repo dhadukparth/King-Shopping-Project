@@ -1,0 +1,30 @@
+<div class="modal fade show d-block"  data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" style="background: #808080;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="icon-close"></i></span>
+                </button>
+                <div class="p-5">
+                    <div class="pt-2">
+                        <h6>Check {{login_user.email}} email address and enter OTP.</h6>
+                    </div>
+                    <form action="/" method="POST">
+                        <input type="hidden" name="two_user_id" value="{{userid}}">
+                        {% csrf_token %}
+                        <div class="form-group mb-1">
+                            <input type="text" class="form-control" name="twostepOTP" name="OTP" required autofocus maxlength="6" />
+                        </div>
+                        <div class="form-choice mt-2">
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-login w-100">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

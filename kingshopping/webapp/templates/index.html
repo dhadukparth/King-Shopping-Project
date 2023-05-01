@@ -1,0 +1,401 @@
+{% extends 'common/webcommon.html' %}
+{% block webtitle %} Online Shopping for Mobile, Watch, Televisions, Camera More. {% endblock webtitle %}
+{% load static %}
+{% block bodycontent %}
+
+    <main class="main">
+
+        <!-- Slider Start -->
+        <div class="intro-slider-container mb-5">
+            <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" 
+                data-owl-options='{
+                    "dots": true,
+                    "nav": false,
+                    "loop": true,
+                    "autoplay": true,
+                    "autoplayTimeout": 2000,
+                    "autoplayHoverPause": false,
+                    "responsive": {
+                        "1200": {
+                            "nav": true,
+                            "dots": false
+                        }
+                    }
+                }'>
+                {% for banner in allbanners %}
+                    <div class="intro-slide">
+                        <figure class="m-0 w-100 h-100">
+                            <div class="rounded cursor-pointer w-100 h-100">
+                                <a href="/product?proname={{banner.proname}}&proid={{banner.proid}}&procolor={{banner.procolorname}}&proprice={{banner.proprice}}">
+                                    <img src="/media/{{banner.bannerImage}}" alt="Banner Upload" class="bannerImage w-100 h-100">
+                                </a>
+                            </div>
+                        </figure>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <span class="slider-loader"></span>
+        </div>
+        <!-- Slider End -->
+
+
+
+
+        <!-- Category Start -->
+        <div class="container">
+            <h2 class="title text-center mb-4">Explore Popular Categories</h2><!-- End .title text-center -->
+            
+            <div class="cat-blocks-container">
+                <div class="row">
+                    
+                    {% for cat in get_category %}
+                    
+                        <div class="categorybox rounded-lg col-12 col-sm-4 col-lg-2">
+                            <a href="/products/{{cat.catname}}/" class="cat-block">
+                                <figure>
+                                    <span style="width: 150px; height: 150px;">
+                                        <img src="{{cat.catimage.url}}" alt="Category image" class="w-100 h-100 object-fit-scale">
+                                    </span>
+                                </figure>
+
+                                <h3 class="cat-block-title text-capitalize">{{cat.catname}}</h3><!-- End .cat-block-title -->
+                            </a>
+                        </div><!-- End .col-sm-4 col-lg-2 -->
+
+                    {% endfor %}
+
+
+                </div><!-- End .row -->
+            </div><!-- End .cat-blocks-container -->
+        </div>
+        <!-- Category End -->
+
+        <div class="mb-4"></div>
+
+
+        <div class="mb-3"></div><!-- End .mb-5 -->
+
+        <!-- New Products Slider Start -->
+        <div class="container new-arrivals">
+            <div class="tab-content tab-content-carousel just-action-icons-sm">
+                <div class="tab-pane p-0 fade show active" id="new-all-tab" role="tabpanel" aria-labelledby="new-all-link">
+                    <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                        data-owl-options='{
+                            "nav": true, 
+                            "dots": true,
+                            "margin": 20,
+                            "loop": false,
+                            "responsive": {
+                                "0": {
+                                    "items":1
+                                },
+                                "480": {
+                                    "items":2
+                                },
+                                "768": {
+                                    "items":3
+                                },
+                                "992": {
+                                    "items":4
+                                },
+                                "1200": {
+                                    "items":5
+                                }
+                            }
+                        }'>
+
+                        {% for prod in get_products %}
+
+                            <div class="product product-2">
+                                <figure class="product-media">
+                                    
+                                    <a href="/product?proname={{prod.proname}}&proid={{prod.proid}}&procolor={{prod.procolorname}}&proprice={{prod.proprice}}" class="bg-white p-3 d-flex justify-content-center"  style="height: 200px;">
+                                        <img src="{{prod.proimage1.url}}" alt="Product image" class="product-image w-100 h-100 object-fit-scale">
+                                    </a>
+
+                                    <div class="product-action">
+                                        <div class="addtocartbtn btn-product btn-cart cursor-pointer" title="Add to cart" data-click="{{prod.proid}}"><span>add to cart</span></div>
+                                        <a href="/product?proname={{prod.proname}}&proid={{prod.proid}}&procolor={{prod.procolorname}}&proprice={{prod.proprice}}" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
+                                    </div>
+                                </figure>
+
+                                <div class="product-body">
+                                    
+                                    <div class="product-cat">
+                                        <a>{{prod.cat}}</a>
+                                    </div>
+
+                                    <h3 class="product-title">
+                                        <a href="/product?proname={{prod.proname|slice:70}}&proid={{prod.proid}}&procolor={{prod.procolorname}}&proprice={{prod.proprice}}">
+                                            {{prod.proname|slice:60}}
+                                        </a>
+                                    </h3><!-- End .product-title -->
+                                    
+                                    <div class="product-price">
+                                        <i class="fas fa-rupee-sign pr-2"></i> {{prod.proprice}}
+                                    </div>
+
+                                    {% if prod.prostock == 0 %}
+                                        <div class="text-danger h6 ml-3">
+                                            Out of Stock
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+
+                    </div><!-- End .owl-carousel -->
+                </div><!-- .End .tab-pane -->
+            </div><!-- End .tab-content -->
+        </div>
+        <!-- New Product Slider End -->
+
+        <div class="mb-6"></div><!-- End .mb-6 -->
+
+        
+        <!-- Trending Products Start -->
+        <div class="bg-light pt-5 pb-6">
+            <div class="container trending-products">
+
+                <div class="row">
+
+                    <div class="col-xl-12">
+                        <div class="tab-content tab-content-carousel just-action-icons-sm">
+                            <div class="tab-pane p-0 fade show active" role="tabpanel">
+                                <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                                    data-owl-options='{
+                                        "nav": true, 
+                                        "dots": true,
+                                        "margin": 20,
+                                        "loop": false,
+                                        "responsive": {
+                                            "0": {
+                                                "items":1
+                                            },
+                                            "480": {
+                                                "items":2
+                                            },
+                                            "768": {
+                                                "items":3
+                                            },
+                                            "992": {
+                                                "items":4
+                                            },
+                                            "1200": {
+                                                "items":5
+                                            }
+                                        }
+                                    }'>
+
+                                    {% for product in random_products %}
+                                        <div class="product product-2">
+                                            <figure class="product-media">
+                                    
+                                                <a href="/product?proname={{product.proname}}&proid={{product.proid}}&procolor={{product.procolorname}}&proprice={{product.proprice}}" class="bg-white p-3 d-flex justify-content-center"  style="height: 200px;">
+                                                    <img src="{{product.proimage1.url}}" alt="Product image" class="product-image w-100 h-100 object-fit-scale">
+                                                </a>
+            
+                                                <div class="product-action">
+                                                    <div class="addtocartbtn btn-product btn-cart cursor-pointer" title="Add to cart" data-click="{{product.proid}}"></div>
+                                                    <a href="/product?proname={{product.proname}}&proid={{product.proid}}&procolor={{product.procolorname}}&proprice={{product.proprice}}" class="btn-product btn-quickview" title="Quick view"></a>
+                                                </div>
+                                            </figure>
+
+                                            <div class="product-body">
+
+                                                <div class="product-cat d-flex justify-content-around mb-2">
+                                                    <a href="/products/{{product.cid}}/">{{product.cid}}</a>
+                                                    <a href="/products/{{product.cid}}/{{product.bid}}/">{{product.bid}}</a>
+                                                </div>
+                                                
+                                                <h3 class="product-title">
+                                                    <a href="/product?proname={{product.proname}}&proid={{product.proid}}&procolor={{product.procolorname}}&proprice={{product.proprice}}">
+                                                        {{product.proname|slice:60}}
+                                                    </a>
+                                                </h3>
+                                                
+                                                <div class="product-price">
+                                                    <i class="fas fa-rupee-sign pr-2"></i> {{product.proprice}}
+                                                </div>
+                                                
+                                                {% comment %} <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
+                                                    </div><!-- End .ratings -->
+                                                    <span class="ratings-text">( 4 Reviews )</span>
+                                                </div><!-- End .rating-container --> {% endcomment %}
+
+                                                {% if product.prostock == 0 %}
+                                                    <div class="text-danger h6 ml-3">
+                                                        Out of Stock
+                                                    </div>
+                                                {% endif %}
+
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .product -->
+
+
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- Trending Product End -->
+
+        <div class="mb-5"></div>
+
+        <!-- All Product Start -->
+        <div class="container for-you">
+            <div class="products">
+                <div class="row">
+
+                    
+                    {% for allprod in allproducts %}
+
+                        {% if forloop.counter <= 20  %}
+                            <div class="col-6 col-md-4 col-lg-3">
+
+                                <div class="product product-2">
+                                    <figure class="product-media">
+                                        
+                                        <a href="/product?proname={{allprod.proname}}&proid={{allprod.proid}}&procolor={{allprod.procolorname}}&proprice={{allprod.proprice}}" class="bg-white p-3 d-flex justify-content-center"  style="height: 200px;">
+                                            <img src="{{allprod.proimage1.url}}" alt="Product image" class="product-image w-100 h-100 object-fit-scale">
+                                        </a>
+
+                                        <div class="product-action">
+                                            <div class="addtocartbtn btn-product btn-cart cursor-pointer" title="Add to cart" data-click="{{allprod.proid}}"></div>
+                                            <a href="/product?proname={{allprod.proname}}&proid={{allprod.proid}}&procolor={{allprod.procolorname}}&proprice={{allprod.proprice}}" class="btn-product btn-quickview" title="Quick view"></a>
+                                        </div>
+                                    </figure>
+
+                                    <div class="product-body">
+                                        
+                                        <div class="product-cat d-flex justify-content-around mb-2">
+                                            <a href="/products/{{allprod.cid}}/">{{allprod.cid}}</a>
+                                            <a href="/products/{{allprod.cid}}/{{allprod.bid}}/">{{allprod.bid}}</a>
+                                        </div>
+
+                                        <h3 class="product-title">
+                                            <a href="/product?proname={{allprod.proname|slice:70}}&proid={{allprod.proid}}&procolor={{allprod.procolorname}}&proprice={{allprod.proprice}}">
+                                                {{allprod.proname|slice:60}}
+                                            </a>
+                                        </h3><!-- End .product-title -->
+                                        
+                                        <div class="product-price">
+                                            <i class="fas fa-rupee-sign pr-2"></i> {{allprod.proprice}}
+                                        </div>
+
+                                        {% if allprod.prostock == 0 %}
+                                            <div class="text-danger h6 ml-3">
+                                                Out of Stock
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                </div><!-- End .row -->
+            </div><!-- End .products -->
+        </div>
+        <!-- All Product End -->
+
+        <div class="mb-4"></div>
+
+        <!-- More Product Button Start -->
+        <div class="load-more-container text-center">
+            <a href="/products/" class="btn btn-outline-darker btn-load-more">More Products <i class="icon-refresh"></i></a>
+        </div>
+        <!-- More Product Button End -->
+
+        <div class="container">
+            <hr class="mb-0">
+        </div>
+
+        <!-- Features Start -->
+        <div class="icon-boxes-container bg-transparent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="icon-box icon-box-side">
+                            <span class="icon-box-icon text-dark">
+                                <i class="icon-rocket"></i>
+                            </span>
+                            <div class="icon-box-content">
+                                <h3 class="icon-box-title">Free Shipping</h3><!-- End .icon-box-title -->
+                                <p>Orders 50 or more</p>
+                            </div><!-- End .icon-box-content -->
+                        </div><!-- End .icon-box -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="icon-box icon-box-side">
+                            <span class="icon-box-icon text-dark">
+                                <i class="icon-rotate-left"></i>
+                            </span>
+
+                            <div class="icon-box-content">
+                                <h3 class="icon-box-title">Free Returns</h3><!-- End .icon-box-title -->
+                                <p>Within 10 days</p>
+                            </div><!-- End .icon-box-content -->
+                        </div><!-- End .icon-box -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="icon-box icon-box-side">
+                            <span class="icon-box-icon text-dark">
+                                <i class="icon-info-circle"></i>
+                            </span>
+
+                            <div class="icon-box-content">
+                                <h3 class="icon-box-title">Get 20% Off 1 Item</h3><!-- End .icon-box-title -->
+                                <p>when you sign up</p>
+                            </div><!-- End .icon-box-content -->
+                        </div><!-- End .icon-box -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="icon-box icon-box-side">
+                            <span class="icon-box-icon text-dark">
+                                <i class="icon-life-ring"></i>
+                            </span>
+
+                            <div class="icon-box-content">
+                                <h3 class="icon-box-title">We Support</h3><!-- End .icon-box-title -->
+                                <p>24/7 amazing services</p>
+                            </div><!-- End .icon-box-content -->
+                        </div><!-- End .icon-box -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div>
+        <!-- Features End -->
+
+    </main><!-- End .main -->
+
+{% endblock bodycontent %}
+
+
+
+{% block pageModals %}
+    {% if twostep == "on" %}
+        {% include 'modals/twoStepOTP.html' %}
+    {% endif %}
+{% endblock pageModals %}
