@@ -176,9 +176,11 @@ Have questions, found a bug, or want to contribute? Feel free to reach out!
 
 <div align="center">
 
-**Parth Dhaduk**
+### Parth Dhaduk
 
-[![Email](https://img.shields.io/badge/Email-ps359511%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ps359511@gmail.com)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ParthDhaduk)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ps359511@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/patelparth2456)
 
 </div>
 
@@ -187,7 +189,6 @@ Have questions, found a bug, or want to contribute? Feel free to reach out!
 <div align="center">
 
 Made with ❤️ by **Parth Dhaduk**
-
 ⭐ If you found this project helpful, please give it a star!
 
 </div>
